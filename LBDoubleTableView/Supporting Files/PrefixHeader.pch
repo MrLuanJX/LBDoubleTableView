@@ -1,0 +1,54 @@
+//
+//  PrefixHeader.pch
+//  LBDoubleTableView
+//
+//  Created by 理享学 on 2021/9/7.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#define ButtonHeight 45
+
+#define WeakSelf(weakSelf)  __weak __typeof(&*self)weakSelf = self;
+#define StrongSelf(strongSelf)  __strong __typeof(&*self)strongSelf = weakSelf;
+
+/********************屏幕宽和高*******************/
+#define LBScreenW [UIScreen mainScreen].bounds.size.width
+#define LBScreenH [UIScreen mainScreen].bounds.size.height
+// 导航条的高度
+#define LBNavigationBarHeight self.navigationController.navigationBar.height+[UIApplication sharedApplication].statusBarFrame.size.height
+// window窗口
+#ifdef __IPHONE_13_0
+#define LBkWindow [UIApplication sharedApplication].keyWindow
+#else
+#define LBkWindow [UIApplication sharedApplication].windows[0]
+#endif
+//16进制颜色设置
+#define LBUIColorWithRGB(rgbValue, alphaValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0x00FF00) >> 8))/255.0 blue:((float)(rgbValue & 0x0000FF))/255.0 alpha:alphaValue]
+//线的颜色
+#define LBLineColor  LBUIColorWithRGB(0xe5e5e5,1.0)
+//字体类型
+#define Font_Bold @"PingFangSC-Semibold"
+#define Font_Medium @"PingFangSC-Medium"
+#define Font_Regular @"PingFangSC-Regular"
+/**字体*/
+#define LBFontNameSize(name,s) [UIFont fontWithName:name size:(LBScreenW > 374 ? (LBScreenW > 375 ?s * 1.1 : s) :s / 1.1)]
+/**判断字符串是否为空*/
+#define LBNULLString(string) ((string == nil) ||[string isEqualToString:@""] ||([string length] == 0)  || [string isKindOfClass:[NSNull class]] || [[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0 ||[string isEqual:[NSNull null]])
+
+//根据屏幕宽度计算对应View的高
+#define LBFit(value) ((value * LBScreenW) / 375.0f)
+
+#import "LBModel.h"
+
+
+#import "UIView+Extension.h"
+#import "UIImage+Extension.h"
+#import "MJRefresh+learnBorrow.h"
+
+#import <Masonry/Masonry.h>
+#import <MJRefresh/MJRefresh.h>
+
+#endif /* PrefixHeader_pch */
+
