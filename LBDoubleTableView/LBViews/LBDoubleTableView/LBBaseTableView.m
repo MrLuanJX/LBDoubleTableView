@@ -72,6 +72,7 @@
         self.didSelectCellCallback(indexPath,cell);
     }
     self.selectedIndex = indexPath;
+    
     [self.baseTableView reloadData];
 }
     

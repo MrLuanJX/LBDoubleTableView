@@ -7,11 +7,11 @@
 
 #import "ViewController.h"
 #import "LBBaseView.h"
-#import "LBNavView.h"
+#import "LBDoubleTableViewController.h"
+#import "LBAllSectionViewController.h"
 
 @interface ViewController ()
 
-@property(nonatomic, strong)LBNavView* navView;
 @property(nonatomic, strong)LBBaseView* baseView;
 @property(nonatomic, strong)NSMutableArray* dataArray;
 
@@ -22,34 +22,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    [self.navView setValue:@"LBDoubleTableView" forKey:@"titleName"];
+    self.title = @"LBDoubleTableView";
     [self loadData];
     [self createUI];
 }
 
-- (void)createUI {
-    CGFloat top = 0;
-    if (@available(iOS 11.0, *)) {
-        if (LBkWindow.safeAreaInsets.top>0) {
-            top = 88;
-        } else
-            top = 64;
-    } else {
-        top = 64;
-    }
-        
+- (void)createUI {    
     [self.view addSubview:self.baseView];
-    [self.view addSubview:self.navView];
-    [self.navView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.offset(0);
-        make.height.mas_equalTo(top);
-    }];
     [self.baseView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.offset(0);
-        make.top.mas_equalTo(self.navView);
+        make.top.mas_equalTo(0);
     }];
     
-    [self.baseView setValue:self.dataArray forKey:@"dataSource"];
+    WeakSelf(weakSelf);
+    self.baseView.didSelectCellCallback = ^(NSIndexPath *indexPath) {
+        StrongSelf(strongSelf);
+        if (indexPath.row == 0) {
+            LBDoubleTableViewController* vc = [LBDoubleTableViewController new];
+            [vc setValue:strongSelf.dataArray forKey:@"dataArray"];
+            [strongSelf.navigationController pushViewController:vc animated:YES];
+        }
+        if (indexPath.row == 1) {
+            LBAllSectionViewController* vc = [LBAllSectionViewController new];
+            [vc setValue:strongSelf.dataArray forKey:@"dataArray"];
+            [strongSelf.navigationController pushViewController:vc animated:YES];
+        }
+    };
 }
 
 - (LBBaseView *)baseView {
@@ -57,13 +55,6 @@
         _baseView = [LBBaseView new];
     }
     return _baseView;
-}
-
-- (LBNavView *)navView {
-    if (!_navView) {
-        _navView = [LBNavView new];
-    }
-    return _navView;
 }
 
 - (NSMutableArray *)dataArray {

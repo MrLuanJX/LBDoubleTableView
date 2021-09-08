@@ -6,15 +6,10 @@
 //
 
 #import "LBBaseView.h"
-#import "LBBaseTableView.h"
-#import "LBChildTableView.h"
 
-@interface LBBaseView() 
+@interface LBBaseView() <UITableViewDelegate,UITableViewDataSource>
 
-@property(nonatomic, strong)LBBaseTableView* baseTableView;
-@property(nonatomic, strong)LBChildTableView* childTableView;
-@property(nonatomic, strong)NSMutableArray* dataSource;
-@property(nonatomic, strong)NSIndexPath* currentIndex;
+@property(nonatomic, strong)UITableView* tableView;
 
 @end
 
@@ -22,76 +17,60 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = LBUIColorWithRGB(0xF5F5F5, 1);
         [self createUI];
-        [self baseTableViewCallback];
-        [self childTableCallback];
     }
     return self;
 }
 
 - (void)createUI {
-    [self addSubview: self.baseTableView];
-    [self addSubview: self.childTableView];
+    [self addSubview: self.tableView];
     
-    [self.baseTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.left.offset(0);
-        make.top.mas_equalTo(LBkWindow.safeAreaInsets.top>0 ?88:64);
-        make.width.mas_equalTo(LBScreenW/3);
-    }];
-    [self.childTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.right.bottom.offset(0);
-        make.left.mas_equalTo(LBScreenW/3);
+    [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.left.right.offset(0);
         make.top.mas_equalTo(LBkWindow.safeAreaInsets.top>0 ?88:64);
     }];
 }
 
-- (void)baseTableViewCallback {
-    WeakSelf(weakSelf);
-    self.baseTableView.didSelectCellCallback = ^(NSIndexPath *indexPath, UITableViewCell *currentBaseCell) {
-        StrongSelf(strongSelf);
-        LBModel* model = strongSelf.dataSource[indexPath.row];
-        [strongSelf.childTableView setValue:model.cityList forKey:@"childData"];
-        [strongSelf.childTableView reload];
-        strongSelf.currentIndex = indexPath;
-    };
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return LBFit(60);
 }
 
-- (void)childTableCallback {
-    WeakSelf(weakSelf);
-    self.childTableView.freshFinishCallback = ^ {
-        StrongSelf(strongSelf);
-        [strongSelf setCurrentIndexWithRow:strongSelf.currentIndex.row+1];
-        [strongSelf.baseTableView reload];
-    };
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 2;
 }
 
-- (void)setDataSource:(NSMutableArray *)dataSource {
-    _dataSource = dataSource;
-    [self.baseTableView setValue:dataSource forKey:@"baseData"];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellId = @"baseTableCellID";
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell.textLabel.adjustsFontSizeToFitWidth = YES;
+    }
     
-    [self setCurrentIndexWithRow:0];
+    cell.textLabel.text = @[@"刷新至下一个分类",@"所有区联动"][indexPath.row];
+
+    return cell;
 }
 
-- (LBChildTableView *)childTableView {
-    if (!_childTableView) {
-        _childTableView = [LBChildTableView new];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    if (self.didSelectCellCallback) {
+        self.didSelectCellCallback(indexPath);
     }
-    return _childTableView;
 }
 
-- (LBBaseTableView *) baseTableView{
-    if (!_baseTableView) {
-        _baseTableView = [LBBaseTableView new];
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.tableFooterView = [UIView new];
+        _tableView.backgroundColor = LBUIColorWithRGB(0xF5F5F5, 1);
+        if (@available(iOS 11.0, *)) {
+            _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
     }
-    return _baseTableView;
+    return _tableView;
 }
-
-- (void)setCurrentIndexWithRow:(NSInteger)row {
-    NSIndexPath *currentIndex = [NSIndexPath indexPathForRow:row inSection:0];
-    [self.baseTableView tableView:self.baseTableView.baseTableView didSelectRowAtIndexPath:currentIndex];
-    self.currentIndex = currentIndex;
-    [self.baseTableView setValue:self.currentIndex forKey:@"selectedIndex"];
-}
-
 @end

@@ -15,7 +15,6 @@
 		0DF6A69F26E744C7004B56D8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DF6A69D26E744C7004B56D8 /* LaunchScreen.storyboard */; };
 		0DF6A6A226E744C7004B56D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A6A126E744C7004B56D8 /* main.m */; };
 		0DF6A6B126E7481F004B56D8 /* LBBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A6B026E7481F004B56D8 /* LBBaseView.m */; };
-		0DF6A6B526E74977004B56D8 /* LBNavView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A6B426E74977004B56D8 /* LBNavView.m */; };
 		0DF6A6B926E74A75004B56D8 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A6B726E74A75004B56D8 /* UIView+Extension.m */; };
 		0DF6A6BC26E74A8F004B56D8 /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A6BA26E74A8F004B56D8 /* UIImage+Extension.m */; };
 		0DF6A6BF26E74F31004B56D8 /* LBBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A6BE26E74F31004B56D8 /* LBBaseTableView.m */; };
@@ -23,6 +22,14 @@
 		0DF6A6C426E75157004B56D8 /* cityList.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DF6A6C326E75157004B56D8 /* cityList.json */; };
 		0DF6A6C726E751B5004B56D8 /* LBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A6C626E751B5004B56D8 /* LBModel.m */; };
 		0DF6A6D426E76928004B56D8 /* MJRefresh+learnBorrow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A6D326E76928004B56D8 /* MJRefresh+learnBorrow.m */; };
+		0DF6A6D726E85AA5004B56D8 /* LBDoubleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A6D626E85AA5004B56D8 /* LBDoubleTableView.m */; };
+		0DF6A6DA26E85D07004B56D8 /* LBDoubleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A6D926E85D07004B56D8 /* LBDoubleTableViewController.m */; };
+		0DF6A6DE26E85D5B004B56D8 /* LBDoubleBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A6DD26E85D5B004B56D8 /* LBDoubleBaseView.m */; };
+		0DF6A6E126E8610B004B56D8 /* LBAllSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A6E026E8610B004B56D8 /* LBAllSectionViewController.m */; };
+		0DF6A6E526E8613F004B56D8 /* LBAllSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A6E426E8613F004B56D8 /* LBAllSectionView.m */; };
+		0DF6A6E826E8617D004B56D8 /* LBAllSectionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A6E726E8617D004B56D8 /* LBAllSectionTableView.m */; };
+		0DF6A6EB26E86256004B56D8 /* LBAllSectionBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A6EA26E86256004B56D8 /* LBAllSectionBaseTableView.m */; };
+		0DF6A6EE26E862A3004B56D8 /* LBAllSectionChildTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A6ED26E862A3004B56D8 /* LBAllSectionChildTableView.m */; };
 		A8CBD6FAD3EDA33107A10B48 /* libPods-LBDoubleTableView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D32BB16E1AA78914553D85F /* libPods-LBDoubleTableView.a */; };
 /* End PBXBuildFile section */
 
@@ -42,8 +49,6 @@
 		0DF6A6AF26E7481F004B56D8 /* LBBaseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBBaseView.h; sourceTree = "<group>"; };
 		0DF6A6B026E7481F004B56D8 /* LBBaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBBaseView.m; sourceTree = "<group>"; };
 		0DF6A6B226E74833004B56D8 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		0DF6A6B326E74977004B56D8 /* LBNavView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBNavView.h; sourceTree = "<group>"; };
-		0DF6A6B426E74977004B56D8 /* LBNavView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBNavView.m; sourceTree = "<group>"; };
 		0DF6A6B726E74A75004B56D8 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		0DF6A6B826E74A75004B56D8 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		0DF6A6BA26E74A8F004B56D8 /* UIImage+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
@@ -57,6 +62,22 @@
 		0DF6A6C626E751B5004B56D8 /* LBModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBModel.m; sourceTree = "<group>"; };
 		0DF6A6D226E76928004B56D8 /* MJRefresh+learnBorrow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MJRefresh+learnBorrow.h"; sourceTree = "<group>"; };
 		0DF6A6D326E76928004B56D8 /* MJRefresh+learnBorrow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MJRefresh+learnBorrow.m"; sourceTree = "<group>"; };
+		0DF6A6D526E85AA5004B56D8 /* LBDoubleTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBDoubleTableView.h; sourceTree = "<group>"; };
+		0DF6A6D626E85AA5004B56D8 /* LBDoubleTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBDoubleTableView.m; sourceTree = "<group>"; };
+		0DF6A6D826E85D07004B56D8 /* LBDoubleTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBDoubleTableViewController.h; sourceTree = "<group>"; };
+		0DF6A6D926E85D07004B56D8 /* LBDoubleTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBDoubleTableViewController.m; sourceTree = "<group>"; };
+		0DF6A6DC26E85D5B004B56D8 /* LBDoubleBaseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBDoubleBaseView.h; sourceTree = "<group>"; };
+		0DF6A6DD26E85D5B004B56D8 /* LBDoubleBaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBDoubleBaseView.m; sourceTree = "<group>"; };
+		0DF6A6DF26E8610B004B56D8 /* LBAllSectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBAllSectionViewController.h; sourceTree = "<group>"; };
+		0DF6A6E026E8610B004B56D8 /* LBAllSectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBAllSectionViewController.m; sourceTree = "<group>"; };
+		0DF6A6E326E8613F004B56D8 /* LBAllSectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBAllSectionView.h; sourceTree = "<group>"; };
+		0DF6A6E426E8613F004B56D8 /* LBAllSectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBAllSectionView.m; sourceTree = "<group>"; };
+		0DF6A6E626E8617D004B56D8 /* LBAllSectionTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBAllSectionTableView.h; sourceTree = "<group>"; };
+		0DF6A6E726E8617D004B56D8 /* LBAllSectionTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBAllSectionTableView.m; sourceTree = "<group>"; };
+		0DF6A6E926E86256004B56D8 /* LBAllSectionBaseTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBAllSectionBaseTableView.h; sourceTree = "<group>"; };
+		0DF6A6EA26E86256004B56D8 /* LBAllSectionBaseTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBAllSectionBaseTableView.m; sourceTree = "<group>"; };
+		0DF6A6EC26E862A3004B56D8 /* LBAllSectionChildTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBAllSectionChildTableView.h; sourceTree = "<group>"; };
+		0DF6A6ED26E862A3004B56D8 /* LBAllSectionChildTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBAllSectionChildTableView.m; sourceTree = "<group>"; };
 		8D32BB16E1AA78914553D85F /* libPods-LBDoubleTableView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LBDoubleTableView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		952DF8F4B36B5566A7D5283E /* Pods-LBDoubleTableView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LBDoubleTableView.debug.xcconfig"; path = "Target Support Files/Pods-LBDoubleTableView/Pods-LBDoubleTableView.debug.xcconfig"; sourceTree = "<group>"; };
 		DAD824A4125A94CA4777302D /* Pods-LBDoubleTableView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LBDoubleTableView.release.xcconfig"; path = "Target Support Files/Pods-LBDoubleTableView/Pods-LBDoubleTableView.release.xcconfig"; sourceTree = "<group>"; };
@@ -135,6 +156,10 @@
 			children = (
 				0DF6A69526E744B9004B56D8 /* ViewController.h */,
 				0DF6A69626E744B9004B56D8 /* ViewController.m */,
+				0DF6A6D826E85D07004B56D8 /* LBDoubleTableViewController.h */,
+				0DF6A6D926E85D07004B56D8 /* LBDoubleTableViewController.m */,
+				0DF6A6DF26E8610B004B56D8 /* LBAllSectionViewController.h */,
+				0DF6A6E026E8610B004B56D8 /* LBAllSectionViewController.m */,
 			);
 			path = LBViewController;
 			sourceTree = "<group>";
@@ -142,14 +167,10 @@
 		0DF6A6AD26E747F0004B56D8 /* LBViews */ = {
 			isa = PBXGroup;
 			children = (
+				0DF6A6E226E8612F004B56D8 /* LBAllSectionView */,
+				0DF6A6DB26E85D44004B56D8 /* LBDoubleTableView */,
 				0DF6A6AF26E7481F004B56D8 /* LBBaseView.h */,
 				0DF6A6B026E7481F004B56D8 /* LBBaseView.m */,
-				0DF6A6BD26E74F31004B56D8 /* LBBaseTableView.h */,
-				0DF6A6BE26E74F31004B56D8 /* LBBaseTableView.m */,
-				0DF6A6C026E75010004B56D8 /* LBChildTableView.h */,
-				0DF6A6C126E75010004B56D8 /* LBChildTableView.m */,
-				0DF6A6B326E74977004B56D8 /* LBNavView.h */,
-				0DF6A6B426E74977004B56D8 /* LBNavView.m */,
 			);
 			path = LBViews;
 			sourceTree = "<group>";
@@ -174,6 +195,36 @@
 				0DF6A6D326E76928004B56D8 /* MJRefresh+learnBorrow.m */,
 			);
 			path = LBCategory;
+			sourceTree = "<group>";
+		};
+		0DF6A6DB26E85D44004B56D8 /* LBDoubleTableView */ = {
+			isa = PBXGroup;
+			children = (
+				0DF6A6DC26E85D5B004B56D8 /* LBDoubleBaseView.h */,
+				0DF6A6DD26E85D5B004B56D8 /* LBDoubleBaseView.m */,
+				0DF6A6D526E85AA5004B56D8 /* LBDoubleTableView.h */,
+				0DF6A6D626E85AA5004B56D8 /* LBDoubleTableView.m */,
+				0DF6A6BD26E74F31004B56D8 /* LBBaseTableView.h */,
+				0DF6A6BE26E74F31004B56D8 /* LBBaseTableView.m */,
+				0DF6A6C026E75010004B56D8 /* LBChildTableView.h */,
+				0DF6A6C126E75010004B56D8 /* LBChildTableView.m */,
+			);
+			path = LBDoubleTableView;
+			sourceTree = "<group>";
+		};
+		0DF6A6E226E8612F004B56D8 /* LBAllSectionView */ = {
+			isa = PBXGroup;
+			children = (
+				0DF6A6E326E8613F004B56D8 /* LBAllSectionView.h */,
+				0DF6A6E426E8613F004B56D8 /* LBAllSectionView.m */,
+				0DF6A6E626E8617D004B56D8 /* LBAllSectionTableView.h */,
+				0DF6A6E726E8617D004B56D8 /* LBAllSectionTableView.m */,
+				0DF6A6E926E86256004B56D8 /* LBAllSectionBaseTableView.h */,
+				0DF6A6EA26E86256004B56D8 /* LBAllSectionBaseTableView.m */,
+				0DF6A6EC26E862A3004B56D8 /* LBAllSectionChildTableView.h */,
+				0DF6A6ED26E862A3004B56D8 /* LBAllSectionChildTableView.m */,
+			);
+			path = LBAllSectionView;
 			sourceTree = "<group>";
 		};
 		38FB6E779FF526FF5DCBE844 /* Frameworks */ = {
@@ -309,15 +360,22 @@
 			files = (
 				0DF6A6D426E76928004B56D8 /* MJRefresh+learnBorrow.m in Sources */,
 				0DF6A6B126E7481F004B56D8 /* LBBaseView.m in Sources */,
+				0DF6A6DA26E85D07004B56D8 /* LBDoubleTableViewController.m in Sources */,
 				0DF6A69726E744B9004B56D8 /* ViewController.m in Sources */,
+				0DF6A6E526E8613F004B56D8 /* LBAllSectionView.m in Sources */,
 				0DF6A69126E744B9004B56D8 /* AppDelegate.m in Sources */,
+				0DF6A6EB26E86256004B56D8 /* LBAllSectionBaseTableView.m in Sources */,
 				0DF6A6BF26E74F31004B56D8 /* LBBaseTableView.m in Sources */,
+				0DF6A6D726E85AA5004B56D8 /* LBDoubleTableView.m in Sources */,
 				0DF6A6B926E74A75004B56D8 /* UIView+Extension.m in Sources */,
 				0DF6A6A226E744C7004B56D8 /* main.m in Sources */,
 				0DF6A6C226E75010004B56D8 /* LBChildTableView.m in Sources */,
-				0DF6A6B526E74977004B56D8 /* LBNavView.m in Sources */,
+				0DF6A6E826E8617D004B56D8 /* LBAllSectionTableView.m in Sources */,
+				0DF6A6DE26E85D5B004B56D8 /* LBDoubleBaseView.m in Sources */,
 				0DF6A69426E744B9004B56D8 /* SceneDelegate.m in Sources */,
+				0DF6A6E126E8610B004B56D8 /* LBAllSectionViewController.m in Sources */,
 				0DF6A6BC26E74A8F004B56D8 /* UIImage+Extension.m in Sources */,
+				0DF6A6EE26E862A3004B56D8 /* LBAllSectionChildTableView.m in Sources */,
 				0DF6A6C726E751B5004B56D8 /* LBModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
