@@ -9,7 +9,7 @@
 
 @interface LBBaseView : UIView
 
-@property(nonatomic, copy)void(^didSelectCellCallback)(NSIndexPath* indexPath);
+@property(nonatomic, copy)void(^didSelectCellCallback)(NSIndexPath* indexPath,NSString* title);
 
 @end
 

@@ -13,6 +13,8 @@
 #define WeakSelf(weakSelf)  __weak __typeof(&*self)weakSelf = self;
 #define StrongSelf(strongSelf)  __strong __typeof(&*self)strongSelf = weakSelf;
 
+#define JFWeakSelf(type)  __weak typeof(type) weak##type = type;
+#define JFStrongSelf(type)  __strong typeof(type) type = weak##type;
 /********************屏幕宽和高*******************/
 #define LBScreenW [UIScreen mainScreen].bounds.size.width
 #define LBScreenH [UIScreen mainScreen].bounds.size.height
@@ -46,6 +48,8 @@
 #import "UIView+Extension.h"
 #import "UIImage+Extension.h"
 #import "MJRefresh+learnBorrow.h"
+#import "UIView+JFBorders.h"
+#import "NSString+transformPY.h"
 
 #import <Masonry/Masonry.h>
 #import <MJRefresh/MJRefresh.h>

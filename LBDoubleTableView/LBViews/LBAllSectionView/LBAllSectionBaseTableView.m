@@ -57,7 +57,6 @@
         }
     }
     return dataCount.count;
-    //self.baseData.count==0?0:self.baseData.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

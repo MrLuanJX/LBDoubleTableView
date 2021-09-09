@@ -10,6 +10,7 @@
 @interface LBBaseView() <UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic, strong)UITableView* tableView;
+@property(nonatomic, copy)NSArray* dataSource;
 
 @end
 
@@ -37,7 +38,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return self.dataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -48,7 +49,7 @@
         cell.textLabel.adjustsFontSizeToFitWidth = YES;
     }
     
-    cell.textLabel.text = @[@"刷新至下一个分类",@"所有区联动"][indexPath.row];
+    cell.textLabel.text = self.dataSource[indexPath.row];
 
     return cell;
 }
@@ -56,7 +57,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (self.didSelectCellCallback) {
-        self.didSelectCellCallback(indexPath);
+        self.didSelectCellCallback(indexPath,self.dataSource[indexPath.row]);
     }
 }
 
@@ -72,5 +73,12 @@
         }
     }
     return _tableView;
+}
+
+- (NSArray *)dataSource {
+    if (!_dataSource) {
+        _dataSource = @[@"刷新至下一个分类",@"所有区联动",@"折叠",@"城市索引"];
+    }
+    return _dataSource;
 }
 @end
