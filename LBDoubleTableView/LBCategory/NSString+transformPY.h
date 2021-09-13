@@ -12,5 +12,7 @@
 + (NSString *)transform:(NSString *)chinese;
 
 + (NSString *)FirstCharactor:(NSString *)pString;
+
+- (BOOL)includeChinese;//判断是否含有汉字
 @end
 

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D58C7E626EA0130000F45B2 /* LBSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C7E526EA0130000F45B2 /* LBSearchView.m */; };
+		0D58C7F026EAE6EF000F45B2 /* LBSearchBtnView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C7EF26EAE6EF000F45B2 /* LBSearchBtnView.m */; };
+		0D58C7F326EB284F000F45B2 /* LBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C7F226EB284F000F45B2 /* LBTextField.m */; };
+		0D58C7F626EEE414000F45B2 /* LBSearchTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C7F526EEE414000F45B2 /* LBSearchTableView.m */; };
 		0DF6A69126E744B9004B56D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A69026E744B9004B56D8 /* AppDelegate.m */; };
 		0DF6A69426E744B9004B56D8 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A69326E744B9004B56D8 /* SceneDelegate.m */; };
 		0DF6A69726E744B9004B56D8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A69626E744B9004B56D8 /* ViewController.m */; };
@@ -42,6 +46,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D58C7E426EA0130000F45B2 /* LBSearchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBSearchView.h; sourceTree = "<group>"; };
+		0D58C7E526EA0130000F45B2 /* LBSearchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBSearchView.m; sourceTree = "<group>"; };
+		0D58C7EE26EAE6EF000F45B2 /* LBSearchBtnView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBSearchBtnView.h; sourceTree = "<group>"; };
+		0D58C7EF26EAE6EF000F45B2 /* LBSearchBtnView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBSearchBtnView.m; sourceTree = "<group>"; };
+		0D58C7F126EB284F000F45B2 /* LBTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBTextField.h; sourceTree = "<group>"; };
+		0D58C7F226EB284F000F45B2 /* LBTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBTextField.m; sourceTree = "<group>"; };
+		0D58C7F426EEE414000F45B2 /* LBSearchTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBSearchTableView.h; sourceTree = "<group>"; };
+		0D58C7F526EEE414000F45B2 /* LBSearchTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBSearchTableView.m; sourceTree = "<group>"; };
 		0DF6A68C26E744B9004B56D8 /* LBDoubleTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LBDoubleTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DF6A68F26E744B9004B56D8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0DF6A69026E744B9004B56D8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -119,6 +131,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D58C7EA26EAE533000F45B2 /* LBSearchView */ = {
+			isa = PBXGroup;
+			children = (
+				0D58C7E426EA0130000F45B2 /* LBSearchView.h */,
+				0D58C7E526EA0130000F45B2 /* LBSearchView.m */,
+				0D58C7F126EB284F000F45B2 /* LBTextField.h */,
+				0D58C7F226EB284F000F45B2 /* LBTextField.m */,
+				0D58C7F426EEE414000F45B2 /* LBSearchTableView.h */,
+				0D58C7F526EEE414000F45B2 /* LBSearchTableView.m */,
+			);
+			path = LBSearchView;
+			sourceTree = "<group>";
+		};
 		0DF6A68326E744B8004B56D8 = {
 			isa = PBXGroup;
 			children = (
@@ -195,6 +220,7 @@
 		0DF6A6AD26E747F0004B56D8 /* LBViews */ = {
 			isa = PBXGroup;
 			children = (
+				0D58C7EA26EAE533000F45B2 /* LBSearchView */,
 				0DF6A71226E9E9F3004B56D8 /* LBCityIndexView */,
 				0DF6A6EF26E89C83004B56D8 /* LBFoldView */,
 				0DF6A6E226E8612F004B56D8 /* LBAllSectionView */,
@@ -279,6 +305,8 @@
 				0DF6A71326E9E9F3004B56D8 /* LBCityIndexView.m */,
 				0DF6A71626E9E9F3004B56D8 /* LBCityIndexTableView.h */,
 				0DF6A71426E9E9F3004B56D8 /* LBCityIndexTableView.m */,
+				0D58C7EE26EAE6EF000F45B2 /* LBSearchBtnView.h */,
+				0D58C7EF26EAE6EF000F45B2 /* LBSearchBtnView.m */,
 			);
 			path = LBCityIndexView;
 			sourceTree = "<group>";
@@ -426,6 +454,7 @@
 				0DF6A6BF26E74F31004B56D8 /* LBBaseTableView.m in Sources */,
 				0DF6A6D726E85AA5004B56D8 /* LBDoubleTableView.m in Sources */,
 				0DF6A6B926E74A75004B56D8 /* UIView+Extension.m in Sources */,
+				0D58C7E626EA0130000F45B2 /* LBSearchView.m in Sources */,
 				0DF6A6A226E744C7004B56D8 /* main.m in Sources */,
 				0DF6A6F826E89ED8004B56D8 /* LBFoldBaseTableView.m in Sources */,
 				0DF6A6C226E75010004B56D8 /* LBChildTableView.m in Sources */,
@@ -434,11 +463,14 @@
 				0DF6A6DE26E85D5B004B56D8 /* LBDoubleBaseView.m in Sources */,
 				0DF6A69426E744B9004B56D8 /* SceneDelegate.m in Sources */,
 				0DF6A6E126E8610B004B56D8 /* LBAllSectionViewController.m in Sources */,
+				0D58C7F626EEE414000F45B2 /* LBSearchTableView.m in Sources */,
 				0DF6A6BC26E74A8F004B56D8 /* UIImage+Extension.m in Sources */,
 				0DF6A6F226E89CBC004B56D8 /* LBFoldView.m in Sources */,
+				0D58C7F326EB284F000F45B2 /* LBTextField.m in Sources */,
 				0DF6A71826E9E9F3004B56D8 /* LBCityIndexTableView.m in Sources */,
 				0DF6A6F526E89D08004B56D8 /* LBFoldViewController.m in Sources */,
 				0DF6A6EE26E862A3004B56D8 /* LBAllSectionChildTableView.m in Sources */,
+				0D58C7F026EAE6EF000F45B2 /* LBSearchBtnView.m in Sources */,
 				0DF6A70E26E9B60E004B56D8 /* NSString+transformPY.m in Sources */,
 				0DF6A6C726E751B5004B56D8 /* LBModel.m in Sources */,
 			);

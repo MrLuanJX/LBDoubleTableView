@@ -16,9 +16,7 @@
 
 @property(nonatomic, strong)LBBaseView* baseView;
 @property(nonatomic, strong)NSMutableArray* dataArray;
-/* 索引数据 */
-@property(nonatomic, strong)NSMutableArray* pyArray;
-@property(nonatomic, strong)NSMutableArray* allArray;
+
 @end
 
 @implementation ViewController
@@ -29,9 +27,6 @@
     self.title = @"LBDoubleTableView";
     [self loadData];
     [self createUI];
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1* NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [self setData];
-//    });
 }
 
 - (void)createUI {    
@@ -103,46 +98,6 @@
         LBModel *model = [LBModel cityWithDict:cityArr[i]];
         [self.dataArray addObject:model];
     }
-}
-
-- (void)setData {
-    [self.pyArray enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
-        NSMutableDictionary* cityDict =object;
-        NSMutableArray* dataArr = @[].mutableCopy;
-        [self.dataArray enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
-            LBModel* model = object;
-            [model.cityList enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
-                LBModel* cityModel = object;
-                if ([[NSString FirstCharactor:cityModel.name] isEqualToString:cityDict[@"cityId"]]) {
-                    [dataArr addObject:cityModel.name];
-                }
-            }];
-        }];
-        cityDict[@"cityName"] = dataArr;
-        [self.allArray addObject:cityDict];
-    }];
-//    [self.cityIndexView setValue:self.allArray forKey:@"dataSource"];
-}
-
-- (NSMutableArray *)pyArray {
-    if (!_pyArray) {
-        _pyArray = @[].mutableCopy;
-     NSArray* arr = @[@"🔍",@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"J",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z"];
-        [arr enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
-            NSMutableDictionary* dict = @{}.mutableCopy;
-            dict[@"cityId"] = arr[idx];
-            dict[@"cityName"] = @[].mutableCopy;
-            [_pyArray addObject:dict];
-        }];
-    }
-    return _pyArray;
-}
-
-- (NSMutableArray *)allArray {
-    if (!_allArray) {
-        _allArray = @[].mutableCopy;
-    }
-    return _allArray;
 }
 
 @end

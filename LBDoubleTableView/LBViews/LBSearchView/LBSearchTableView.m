@@ -1,20 +1,20 @@
 //
-//  LBCityIndexTableView.m
+//  LBSearchTableView.m
 //  LBDoubleTableView
 //
-//  Created by 理享学 on 2021/9/9.
+//  Created by 理享学 on 2021/9/13.
 //
 
-#import "LBCityIndexTableView.h"
+#import "LBSearchTableView.h"
 
-@interface LBCityIndexTableView() <UITableViewDelegate,UITableViewDataSource>
+@interface LBSearchTableView() <UITableViewDelegate,UITableViewDataSource>
 
-@property(nonatomic, strong)UITableView* cityTableView;
+@property(nonatomic, strong)UITableView* searchTableView;
 @property(nonatomic, strong)NSMutableArray* dataSource;
-@property(nonatomic, strong)UIActivityIndicatorView* activity;
+
 @end
 
-@implementation LBCityIndexTableView
+@implementation LBSearchTableView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -25,23 +25,15 @@
 }
 
 - (void)createUI {
-    [self addSubview:self.cityTableView];
-    [self addSubview:self.activity];
-    [self.activity mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.offset(0);
-        make.width.height.mas_equalTo(LBFit(100));
-    }];
-    [self.cityTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [self addSubview:self.searchTableView];
+    [self.searchTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.right.top.bottom.left.offset(0);
     }];
-    //菊花开始
-    [self.activity startAnimating];
 }
 
 - (void)setDataSource:(NSMutableArray *)dataSource {
     _dataSource = dataSource;
-    [self.activity stopAnimating];
-    [self.cityTableView reloadData];
+    [self.searchTableView reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -80,16 +72,17 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellId = @"cityIndexCellID";
+    static NSString *cellId = @"searchCellID";
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         cell.textLabel.adjustsFontSizeToFitWidth = YES;
     }
-    
-    NSMutableDictionary* dict = self.dataSource[indexPath.section];
-    NSMutableArray* cellArr = dict[@"cityName"];
-    cell.textLabel.text = cellArr[indexPath.row];
+    if (self.dataSource.count>0) {
+        NSMutableDictionary* dict = self.dataSource[indexPath.section];
+        NSMutableArray* cellArr = dict[@"cityName"];
+        cell.textLabel.text = cellArr[indexPath.row];
+    }
     
     return cell;
 }
@@ -110,29 +103,26 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    NSMutableDictionary* dict = self.dataSource[indexPath.section];
+    NSString* selectRow = dict[@"cityName"][indexPath.row];
+    if (self.selectCallback) {
+        self.selectCallback(selectRow);
+    }
 }
 
-- (UITableView *)cityTableView {
-    if (!_cityTableView) {
-        _cityTableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
-        _cityTableView.delegate = self;
-        _cityTableView.dataSource = self;
-        _cityTableView.tableFooterView = [UIView new];
-        _cityTableView.sectionIndexColor = LBUIColorWithRGB(0x228B22, 1);
-        _cityTableView.sectionIndexBackgroundColor = [UIColor clearColor];  //背景颜色
+- (UITableView *)searchTableView {
+    if (!_searchTableView) {
+        _searchTableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
+        _searchTableView.delegate = self;
+        _searchTableView.dataSource = self;
+        _searchTableView.tableFooterView = [UIView new];
+        _searchTableView.sectionIndexColor = LBUIColorWithRGB(0x228B22, 1);
+        _searchTableView.sectionIndexBackgroundColor = [UIColor clearColor];  //背景颜色
         if (@available(iOS 11.0, *)) {
-            _cityTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+            _searchTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
     }
-    return _cityTableView;
-}
-
-- (UIActivityIndicatorView *)activity {
-    if (!_activity) {
-        _activity = [[UIActivityIndicatorView alloc]init];
-        _activity.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    }
-    return _activity;
+    return _searchTableView;
 }
 
 @end

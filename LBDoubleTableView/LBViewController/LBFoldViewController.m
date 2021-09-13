@@ -20,6 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
+    self.title = @"FlodView";
 }
 
 - (void)createUI {

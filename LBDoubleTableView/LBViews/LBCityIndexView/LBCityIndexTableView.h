@@ -7,10 +7,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LBSearchCell: UITableViewCell
-
-@end
-
 @interface LBCityIndexTableView : UIView
 
 @end

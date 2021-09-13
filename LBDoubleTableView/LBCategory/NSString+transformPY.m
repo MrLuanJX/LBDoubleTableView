@@ -13,7 +13,23 @@
     NSMutableString *pinyin = [chinese mutableCopy];
     CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformMandarinLatin, NO);
     CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformStripCombiningMarks, NO);
-    NSLog(@"%@", pinyin);
+    /*多音字处理*/
+    if ([[(NSString *)chinese substringToIndex:1] compare:@"长"] == NSOrderedSame) {
+        [pinyin replaceCharactersInRange:NSMakeRange(0, 5) withString:@"chang"];
+    }
+    if ([[(NSString *)chinese substringToIndex:1] compare:@"沈"] == NSOrderedSame) {
+        [pinyin replaceCharactersInRange:NSMakeRange(0, 4) withString:@"shen"];
+    }
+    if ([[(NSString *)chinese substringToIndex:1] compare:@"厦"] == NSOrderedSame) {
+        [pinyin replaceCharactersInRange:NSMakeRange(0, 3) withString:@"xia"];
+    }
+    if ([[(NSString *)chinese substringToIndex:1] compare:@"地"] == NSOrderedSame) {
+        [pinyin replaceCharactersInRange:NSMakeRange(0, 3) withString:@"di"];
+    }
+    if ([[(NSString *)chinese substringToIndex:1] compare:@"重"] == NSOrderedSame) {
+        [pinyin replaceCharactersInRange:NSMakeRange(0, 5) withString:@"chong"];
+    }
+//    NSLog(@"%@", pinyin);
     return [pinyin uppercaseString];
 }
 
@@ -25,7 +41,6 @@
     CFStringTransform((CFMutableStringRef)pStr,NULL, kCFStringTransformMandarinLatin,NO);
     //再转换为不带声调的拼音
     CFStringTransform((CFMutableStringRef)pStr,NULL, kCFStringTransformStripDiacritics,NO);
-    
     /*多音字处理*/
     if ([[(NSString *)pString substringToIndex:1] compare:@"长"] == NSOrderedSame) {
         [pStr replaceCharactersInRange:NSMakeRange(0, 5) withString:@"chang"];
@@ -44,9 +59,19 @@
     }
     
     //转化为大写拼音
-    NSString *pPinYin = [pStr capitalizedString];
+    NSString *pPinYin = [pStr uppercaseString];
     //获取并返回首字母
     return [pPinYin substringToIndex:1];
+}
+
+- (BOOL)includeChinese {
+    for(int i=0; i< [self length];i++) {
+        int a =[self characterAtIndex:i];
+        if( a >0x4e00&& a <0x9fff){
+            return YES;
+        }
+    }
+    return NO;
 }
 
 @end

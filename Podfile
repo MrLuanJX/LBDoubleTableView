@@ -6,5 +6,6 @@ target 'LBDoubleTableView' do
 
 pod 'Masonry'
 pod 'MJRefresh'
+#pod 'IQKeyboardManager'
 
 end

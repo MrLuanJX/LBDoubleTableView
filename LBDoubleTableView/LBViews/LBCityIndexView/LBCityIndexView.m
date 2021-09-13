@@ -19,7 +19,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        
         self.backgroundColor = [UIColor whiteColor];
         [self createUI];
     }
@@ -28,6 +27,7 @@
 
 - (void)createUI {
     [self addSubview:self.cityTableView];
+
     [self.cityTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.right.bottom.left.offset(0);
         make.top.mas_equalTo(LBkWindow.safeAreaInsets.top>0 ?88:64);
@@ -36,7 +36,6 @@
 
 - (void)setDataSource:(NSMutableArray *)dataSource {
     _dataSource = dataSource;
-    
     [self.cityTableView setValue:dataSource forKey:@"dataSource"];
 }
 
