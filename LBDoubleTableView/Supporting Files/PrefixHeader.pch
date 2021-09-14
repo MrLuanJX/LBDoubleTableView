@@ -42,6 +42,12 @@
 //根据屏幕宽度计算对应View的高
 #define LBFit(value) ((value * LBScreenW) / 375.0f)
 
+#ifdef DEBUG
+#define NSLog(format, ...) printf("\n[%s] %s [第%d行] %s\n", __TIME__, __FUNCTION__, __LINE__, [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String]);
+#else
+#define NSLog(format, ...)
+#endif
+
 #import "LBModel.h"
 
 #import "UIView+Extension.h"
@@ -49,6 +55,12 @@
 #import "MJRefresh+learnBorrow.h"
 #import "UIView+JFBorders.h"
 #import "NSString+transformPY.h"
+#import "NSObject+GetIP.h"
+#import "NSArray+Log.h"
+#import "NSDictionary+Log.h"
+#import "LBLocation.h"
+#import "LBTextHUD.h"
+#import "LBUserDefaultTool.h"
 
 #import <Masonry/Masonry.h>
 #import <MJRefresh/MJRefresh.h>

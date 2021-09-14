@@ -10,6 +10,7 @@
 @interface LBSearchBtnView()
 
 @property(nonatomic, strong)UIButton* searchBtn;
+@property(nonatomic, copy)NSString* btnTitle;
 
 @end
 
@@ -29,6 +30,12 @@
         make.width.mas_equalTo(LBScreenW - 100);
         make.height.mas_equalTo(35);
     }];
+}
+
+- (void)setBtnTitle:(NSString *)btnTitle {
+    _btnTitle = btnTitle;
+        
+    [self.searchBtn setTitle:btnTitle forState:UIControlStateNormal];
 }
 
 - (void)searchAction:(UIButton *)sender {

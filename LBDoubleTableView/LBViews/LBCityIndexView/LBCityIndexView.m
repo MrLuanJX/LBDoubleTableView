@@ -21,6 +21,7 @@
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
         [self createUI];
+        [self citySelectCallback];
     }
     return self;
 }
@@ -32,6 +33,16 @@
         make.right.bottom.left.offset(0);
         make.top.mas_equalTo(LBkWindow.safeAreaInsets.top>0 ?88:64);
     }];
+}
+
+- (void)citySelectCallback {
+    LBWeakSelf(self);
+    self.cityTableView.selectCallback = ^(NSString *selectText) {
+        LBStrongSelf(self);
+        if (self.selectCallback) {
+            self.selectCallback(selectText);
+        }
+    };
 }
 
 - (void)setDataSource:(NSMutableArray *)dataSource {

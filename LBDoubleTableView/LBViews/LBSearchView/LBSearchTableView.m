@@ -6,6 +6,7 @@
 //
 
 #import "LBSearchTableView.h"
+#import "LBSearchView.h"
 
 @interface LBSearchTableView() <UITableViewDelegate,UITableViewDataSource>
 

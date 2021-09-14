@@ -43,8 +43,9 @@
 
 - (void)setLastText:(NSString *)lastText {
     _lastText = lastText;
-    
     self.editTF.text = lastText;
+    // 缓存历史数据
+    [LBUserDefaultTool historyDefaultsWithText:lastText];
 }
 
 #pragma mark textfield的代理
@@ -117,4 +118,5 @@
     }
     return _editTF;
 }
+
 @end

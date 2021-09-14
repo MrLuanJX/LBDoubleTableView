@@ -9,5 +9,7 @@
 
 @interface LBCityIndexView : UIView
 
+@property(nonatomic, copy)void(^selectCallback)(NSString* selectText);
+
 @end
 

@@ -142,7 +142,6 @@
                     [self.searchArray addObject:tempDict];
                 }
             }];
-            NSLog(@"searchArray: %@",self.searchArray);
         }
         self.searchTableView.alpha = [NSString transform:inputText].length>1?1:0;
         [self.searchTableView setValue:self.searchArray forKey:@"dataSource"];
