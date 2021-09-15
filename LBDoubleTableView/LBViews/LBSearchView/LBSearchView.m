@@ -119,7 +119,7 @@
         }
     };
 }
-
+// 搜索input实时搜索
 - (void)setSearchWithInputText:(NSString *)inputText {
     if (inputText.length > 0) {
         [self.searchArray removeAllObjects];
@@ -134,6 +134,7 @@
                     tempDict[@"cityId"] = firstText;
                     [dict[@"cityName"] enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
                         NSString* cityName = object;
+                                                
                         if ([[NSString transform:cityName] containsString:[NSString transform:inputText]]) {
                             [tempArr addObject:cityName];
                         }

@@ -9,10 +9,18 @@
 
 @interface NSString (transformPY)
 
+// 汉字转拼音未去掉空格
 + (NSString *)transform:(NSString *)chinese;
 
+// 汉字转拼音返回首字母
 + (NSString *)FirstCharactor:(NSString *)pString;
 
-- (BOOL)includeChinese;//判断是否含有汉字
+// 汉字转拼音并去掉空格
++ (NSString *)chChangePin:(NSString *)str;
+
+//判断是否含有汉字
+- (BOOL)includeChinese;
+
+
 @end
 

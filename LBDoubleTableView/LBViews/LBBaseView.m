@@ -10,7 +10,7 @@
 @interface LBBaseView() <UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic, strong)UITableView* tableView;
-@property(nonatomic, copy)NSArray* dataSource;
+@property(nonatomic, strong)NSMutableArray* dataSource;
 
 @end
 
@@ -75,9 +75,9 @@
     return _tableView;
 }
 
-- (NSArray *)dataSource {
+- (NSMutableArray *)dataSource {
     if (!_dataSource) {
-        _dataSource = @[@"刷新至下一个分类",@"所有区联动",@"折叠",@"城市索引"];
+        _dataSource = @[@"刷新至下一个分类",@"所有区联动",@"折叠",@"城市索引"].mutableCopy;
     }
     return _dataSource;
 }

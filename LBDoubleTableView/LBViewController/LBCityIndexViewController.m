@@ -16,10 +16,10 @@
 @property(nonatomic, strong)LBSearchBtnView* searchBtnView;
 @property(nonatomic, strong)LBCityIndexView* cityIndexView;
 @property(nonatomic, strong)LBSearchTableView* searchTableView;
-@property(nonatomic, strong)NSMutableArray* dataArray;
-@property(nonatomic, strong)NSMutableArray* pyArray;
-@property(nonatomic, strong)NSMutableArray* allArray;
-@property(nonatomic, strong)NSMutableArray* historyArray;
+@property(nonatomic, strong)NSMutableArray* dataArray;      // 城市数据
+@property(nonatomic, strong)NSMutableArray* pyArray;        // 拼音数据
+@property(nonatomic, strong)NSMutableArray* allArray;       // 所有数据
+@property(nonatomic, strong)NSMutableArray* historyArray;   // 历史数据
 
 @end
 
@@ -42,25 +42,7 @@
             [self setData];
         });
     } else {
-        // 替换历史数据（历史数据需要变换）缓存是错误的
-        NSMutableDictionary* historyDict = @{}.mutableCopy;
-        [cityData enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
-            if (idx == 0) {
-                NSMutableDictionary* dict = object;
-                NSMutableArray* array = @[].mutableCopy;
-                NSArray* arr = dict[@"cityName"];
-                [array addObjectsFromArray:arr];
-                [array removeAllObjects];
-                [array addObjectsFromArray:[LBUserDefaultTool getHistoryData]];
-                historyDict[@"cityName"] = array;
-            }
-        }];
-        historyDict[@"cityId"] = cityData.firstObject[@"cityId"];
-        [cityData removeObjectAtIndex:0];
-        [cityData insertObject:historyDict atIndex:0];
-        // 给搜索赋值数据 allArray
-        [self.allArray addObjectsFromArray:cityData];
-        [self.cityIndexView setValue:cityData forKey:@"dataSource"];
+        [self getDefaultData:cityData];
     }
     // 取历史筛选选中的数组
     NSMutableArray* historyArray = [LBUserDefaultTool getHistoryData];
@@ -117,10 +99,10 @@
         NSMutableDictionary* cityDict =object;
         NSMutableArray* dataArr = @[].mutableCopy;
         if (idx == 0) {
-            [dataArr addObjectsFromArray:self.historyArray];
+            dataArr = self.historyArray;
         }
         if (idx == 1) {
-            [dataArr addObjectsFromArray:@[@"北京市",@"上海市",@"广州市",@"深圳市",@"杭州市",@"苏州市",@"昆明市",@"西安市",@"郑州市",@"哈尔滨市",@"沈阳市",@"长春市",@"石家庄市",@"天津市",@"成都市",@"重庆市",@"武汉市",@"合肥市",@"长沙市",@"厦门市",@"南昌市"]];
+            dataArr =  @[@"北京市",@"上海市",@"广州市",@"深圳市",@"杭州市",@"苏州市",@"昆明市",@"西安市",@"郑州市",@"哈尔滨市",@"沈阳市",@"长春市",@"石家庄市",@"天津市",@"成都市",@"重庆市",@"武汉市",@"合肥市",@"长沙市",@"厦门市",@"南昌市"].mutableCopy;
         }
         [self.dataArray enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
             LBModel* model = object;
@@ -137,6 +119,28 @@
     [self.cityIndexView setValue:self.allArray forKey:@"dataSource"];
     // 缓存cityData
     [LBUserDefaultTool saveCityData:self.allArray];
+}
+
+- (void)getDefaultData:(NSMutableArray *)cityData {
+    // 替换历史数据（历史数据需要变换）缓存是错误的
+    NSMutableDictionary* historyDict = @{}.mutableCopy;
+    [cityData enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
+        if (idx == 0) {
+            NSMutableDictionary* dict = object;
+            NSMutableArray* array = @[].mutableCopy;
+            NSArray* arr = dict[@"cityName"];
+            [array addObjectsFromArray:arr];
+            [array removeAllObjects];
+            [array addObjectsFromArray:[LBUserDefaultTool getHistoryData]];
+            historyDict[@"cityName"] = array;
+        }
+    }];
+    historyDict[@"cityId"] = cityData.firstObject[@"cityId"];
+    [cityData removeObjectAtIndex:0];
+    [cityData insertObject:historyDict atIndex:0];
+    // 给搜索赋值数据 allArray
+    [self.allArray addObjectsFromArray:cityData];
+    [self.cityIndexView setValue:cityData forKey:@"dataSource"];
 }
 
 - (LBCityIndexView *)cityIndexView {
@@ -187,6 +191,5 @@
     }
     return _searchTableView;
 }
-
 
 @end

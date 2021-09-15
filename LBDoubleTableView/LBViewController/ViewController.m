@@ -25,6 +25,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"LBDoubleTableView";
+
     [self loadData];
     [self createUI];
 }

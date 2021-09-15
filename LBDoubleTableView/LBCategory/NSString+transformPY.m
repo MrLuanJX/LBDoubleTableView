@@ -29,8 +29,29 @@
     if ([[(NSString *)chinese substringToIndex:1] compare:@"重"] == NSOrderedSame) {
         [pinyin replaceCharactersInRange:NSMakeRange(0, 5) withString:@"chong"];
     }
-//    NSLog(@"%@", pinyin);
-    return [pinyin uppercaseString];
+    /*去空格*/
+    NSString *ciytString = [NSString stringWithFormat:@"%@",pinyin];
+    NSString *cityName = [ciytString stringByReplacingOccurrencesOfString:@" " withString:@""];
+     
+    return cityName;//[pinyin uppercaseString];
+}
+
+// 汉字转拼音并去空格
++ (NSString *)chChangePin:(NSString *)str {
+    // NSString 转换成 CFStringRef 型
+    CFStringRef string1 = (CFStringRef)CFBridgingRetain(str);
+    //  汉字转换成拼音
+    CFMutableStringRef string = CFStringCreateMutableCopy(NULL, 0, string1);
+    //  拼音（带声调的）
+    CFStringTransform(string, NULL, kCFStringTransformMandarinLatin, NO);
+    //  去掉声调符号
+    CFStringTransform(string, NULL, kCFStringTransformStripDiacritics, NO);
+    //  CFStringRef 转换成 NSString
+    NSString *strings = (NSString *)CFBridgingRelease(string);
+    //  去掉空格
+    NSString *cityString = [strings stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    return cityString;
 }
 
 //获取拼音首字母(传入汉字字符串, 返回大写拼音首字母)
@@ -57,13 +78,12 @@
     if ([[(NSString *)pString substringToIndex:1] compare:@"重"] == NSOrderedSame) {
         [pStr replaceCharactersInRange:NSMakeRange(0, 5) withString:@"chong"];
     }
-    
-    //转化为大写拼音
+    //转化为大写拼音     // lowercaseString 转小写
     NSString *pPinYin = [pStr uppercaseString];
     //获取并返回首字母
     return [pPinYin substringToIndex:1];
 }
-
+// 是否包含汉字
 - (BOOL)includeChinese {
     for(int i=0; i< [self length];i++) {
         int a =[self characterAtIndex:i];

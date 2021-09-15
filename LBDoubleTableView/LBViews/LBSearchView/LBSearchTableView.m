@@ -84,7 +84,6 @@
         NSMutableArray* cellArr = dict[@"cityName"];
         cell.textLabel.text = cellArr[indexPath.row];
     }
-    
     return cell;
 }
 
