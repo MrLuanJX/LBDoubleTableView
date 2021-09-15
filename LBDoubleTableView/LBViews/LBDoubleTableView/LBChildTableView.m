@@ -6,7 +6,7 @@
 //
 
 #import "LBChildTableView.h"
-
+// 右边的tableView
 @interface LBChildTableView() <UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic, strong)UITableView* childTableView;

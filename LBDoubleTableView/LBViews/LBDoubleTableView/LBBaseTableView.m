@@ -6,7 +6,7 @@
 //
 
 #import "LBBaseTableView.h"
-
+// 左边的tableView
 @interface LBBaseTableView() <UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic, strong)NSMutableArray* baseData;

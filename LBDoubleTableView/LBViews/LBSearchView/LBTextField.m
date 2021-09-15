@@ -41,6 +41,10 @@
     [self.editTF becomeFirstResponder];
 }
 
+- (void)tfResignFirstResponder {
+    [self.editTF resignFirstResponder];
+}
+
 - (void)setLastText:(NSString *)lastText {
     _lastText = lastText;
     self.editTF.text = lastText;

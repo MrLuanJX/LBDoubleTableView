@@ -11,5 +11,7 @@
 
 @property(nonatomic, copy)void(^textFieldCallback)(NSString* textInput);
 
+- (void)tfResignFirstResponder;
+
 @end
 

@@ -110,6 +110,10 @@
     }
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+}
+
 - (UITableView *)searchTableView {
     if (!_searchTableView) {
         _searchTableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];

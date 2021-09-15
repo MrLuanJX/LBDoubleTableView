@@ -9,11 +9,11 @@
 
 @interface LBModel : NSObject
 
-@property(nonatomic, strong) NSArray *cityList;
-@property(nonatomic, strong) NSArray *areaList;
+@property(nonatomic, copy)NSArray *cityList;
+@property(nonatomic, copy)NSArray *areaList;
 /// 市
-@property(nonatomic, copy) NSString *name;
-@property(nonatomic, copy) NSString *code;
+@property(nonatomic, copy)NSString *name;
+@property(nonatomic, copy)NSString *code;
 
 /// 字典转模型的对象方法
 /// @param dict 字典

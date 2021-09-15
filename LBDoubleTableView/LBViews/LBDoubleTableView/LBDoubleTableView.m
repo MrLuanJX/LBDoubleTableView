@@ -91,7 +91,7 @@
     self.currentIndex = currentIndex;
     [self.baseTableView setValue:self.currentIndex forKey:@"selectedIndex"];
     
-    [self.baseTableView.baseTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    [self.baseTableView.baseTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 @end
