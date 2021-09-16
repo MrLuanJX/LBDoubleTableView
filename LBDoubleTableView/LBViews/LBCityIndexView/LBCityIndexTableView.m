@@ -6,6 +6,8 @@
 //
 
 #import "LBCityIndexTableView.h"
+#import "LBIndexView.h"
+#import "LBIndexItemView.h"
 
 @interface LBCollectionCell()
 
@@ -56,15 +58,24 @@
 @property(nonatomic, strong)NSMutableArray* dataArray;
 @property(nonatomic, copy)NSString* selectedHotIndex;  // 热门
 @property(nonatomic, strong)NSMutableArray* historyArray;  // 历史
++ (LBHistoryCell *)tableView:(UITableView *)tableView dequeueReusableCellWithIdentifier:(NSString *)cellId;
 
 @end
 
 @implementation LBHistoryCell
 
++ (LBHistoryCell *)tableView:(UITableView *)tableView dequeueReusableCellWithIdentifier:(NSString *)cellId {
+    LBHistoryCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if (cell == nil) {
+        cell = [[LBHistoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell.textLabel.adjustsFontSizeToFitWidth = YES;
+    }
+    return cell;
+}
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self createUI];
-        
         // 取出上次选中的缓存index
         NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
         self.selectedHotIndex = [defaults objectForKey:@"hotSelected"];
@@ -96,7 +107,7 @@
 
 #pragma mark - item宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake((self.collectionView.width - LBFit(40))/3, LBFit(40));
+    return CGSizeMake((self.collectionView.width - LBFit(60))/3, LBFit(40));
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -139,7 +150,7 @@
         // 行间距
         layout.minimumLineSpacing = LBFit(10);
         layout.minimumInteritemSpacing = LBFit(10);
-        layout.sectionInset = UIEdgeInsetsMake(LBFit(10), LBFit(10), LBFit(10), LBFit(10)); //设置距离上 左 下 右
+        layout.sectionInset = UIEdgeInsetsMake(LBFit(10), LBFit(10), LBFit(10), LBFit(30)); //设置距离上 左 下 右
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
@@ -164,10 +175,20 @@
 
 @property(nonatomic, strong)UILabel* cityLabel;
 @property(nonatomic, strong)UIImageView* selectedImg;
++ (LBCityCell *)tableView:(UITableView *)tableView dequeueReusableCellWithIdentifier:(NSString *)cellId;
 
 @end
 
 @implementation LBCityCell
+
++ (LBCityCell *)tableView:(UITableView *)tableView dequeueReusableCellWithIdentifier:(NSString *)cellId {
+    LBCityCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if (cell == nil) {
+        cell = [[LBCityCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell.textLabel.adjustsFontSizeToFitWidth = YES;
+    }
+    return cell;
+}
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -186,7 +207,7 @@
         make.centerY.offset(0);
     }];
     [self.selectedImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.offset(-LBFit(10));
+        make.right.offset(-LBFit(30));
         make.centerY.offset(0);
     }];
 }
@@ -209,12 +230,13 @@
 
 @end
 
-@interface LBCityIndexTableView() <UITableViewDelegate,UITableViewDataSource>
+@interface LBCityIndexTableView() <UITableViewDelegate,UITableViewDataSource,LBIndexViewDataSource,LBIndexViewDelegate>
 
 @property(nonatomic, strong)UITableView* cityTableView;
 @property(nonatomic, strong)NSMutableArray* dataSource;
 @property(nonatomic, strong)UIActivityIndicatorView* activity;
 @property(nonatomic, strong)NSIndexPath* currentSelectedIndex;
+@property(nonatomic, strong)LBIndexView* indexView;
 
 @end
 
@@ -231,6 +253,8 @@
 - (void)createUI {
     [self addSubview:self.cityTableView];
     [self addSubview:self.activity];
+    [self addSubview:self.indexView];
+
     [self.activity mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.offset(0);
         make.width.height.mas_equalTo(LBFit(100));
@@ -238,6 +262,14 @@
     [self.cityTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.right.top.bottom.left.offset(0);
     }];
+    
+    [self.indexView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.offset(0);
+        make.right.offset(0);
+        make.height.mas_equalTo(LBScreenH/3*2);
+        make.width.mas_equalTo(LBFit(30));
+    }];
+    
     //菊花开始
     [self.activity startAnimating];
 }
@@ -246,6 +278,8 @@
     _dataSource = dataSource;
     [self.activity stopAnimating];
     [self.cityTableView reloadData];
+    
+    [self.indexView reloadIndexView];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -288,49 +322,22 @@
     
     return sectionView;
 }
-
+#pragma mark - tableViewDataSource
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0|| indexPath.section == 1) {
         static NSString *cellId = @"historyCellID";
-        LBHistoryCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-        if (cell == nil) {
-            cell = [[LBHistoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-            cell.textLabel.adjustsFontSizeToFitWidth = YES;
-        }
+        LBHistoryCell* cell = [LBHistoryCell tableView:tableView dequeueReusableCellWithIdentifier:cellId];
         NSMutableDictionary* dict = self.dataSource[indexPath.section];
         NSMutableArray* cellArr = dict[@"cityName"];
         cell.dataArray = cellArr;
         cell.index = indexPath;
-        
-        LBWeakSelf(self);
-        cell.collectionCallback = ^(NSString *selectText,NSInteger collectionSelectIndex,NSIndexPath *index) {
-            LBStrongSelf(self);
-            if (index.section==1) {
-                [LBUserDefaultTool saveHotSelectedData:collectionSelectIndex];
-            } else {
-                NSMutableDictionary* dict = self.dataSource[1];
-                NSMutableArray* cellArr = dict[@"cityName"];
-                // 清热门选中缓存，重新存
-                [LBUserDefaultTool removeHotSelected];
-                [cellArr enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
-                    if ([object isEqualToString:selectText]) {
-                        [LBUserDefaultTool saveHotSelectedData:idx];
-                    }
-                }];
-            }
-            if (self.selectCallback) {
-                self.selectCallback(selectText);
-            }
-        };
+        // callback回调
+        [self historyCellCallback:cell];
         
         return cell;
     }
     static NSString *cellId = @"cityIndexCellID";
-    LBCityCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    if (cell == nil) {
-        cell = [[LBCityCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-        cell.textLabel.adjustsFontSizeToFitWidth = YES;
-    }
+    LBCityCell * cell = [LBCityCell tableView:tableView dequeueReusableCellWithIdentifier:cellId];
     // 取出历史区的数据，第一个为当前选中的
     NSMutableArray* arr = [LBUserDefaultTool getHistoryData];
     // cell赋值
@@ -347,21 +354,31 @@
     
     return cell;
 }
-
-- (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-    NSMutableArray* sectionArr = @[].mutableCopy;
-    [self.dataSource enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
-        NSMutableDictionary* dict = object;
-        [sectionArr addObject:dict[@"cityId"]];
-    }];
-    
-    return sectionArr;
+#pragma mark - historyCellCallback
+- (void)historyCellCallback:(LBHistoryCell *)cell {
+    LBWeakSelf(self);
+    cell.collectionCallback = ^(NSString *selectText,NSInteger collectionSelectIndex,NSIndexPath *index) {
+        LBStrongSelf(self);
+        if (index.section==1) {
+            [LBUserDefaultTool saveHotSelectedData:collectionSelectIndex];
+        } else {
+            NSMutableDictionary* dict = self.dataSource[1];
+            NSMutableArray* cellArr = dict[@"cityName"];
+            // 清热门选中缓存，重新存
+            [LBUserDefaultTool removeHotSelected];
+            [cellArr enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
+                if ([object isEqualToString:selectText]) {
+                    [LBUserDefaultTool saveHotSelectedData:idx];
+                }
+            }];
+        }
+        if (self.selectCallback) {
+            self.selectCallback(selectText);
+        }
+    };
 }
 
-- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
-    return index;
-}
-
+#pragma mark - tableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
         
@@ -373,7 +390,6 @@
             self.selectCallback(selectRow);
         }
     }
-    
     LBCityCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     LBCityCell *currentCell = [tableView cellForRowAtIndexPath:self.currentSelectedIndex];
     currentCell.cityLabel.textColor = LBUIColorWithRGB(0x130202, 1);
@@ -381,15 +397,42 @@
     cell.selectedImg.alpha = 1;
     cell.cityLabel.textColor = LBUIColorWithRGB(0x228B22, 1);
 }
+#pragma mark - LBIndexViewDataSource
+- (NSInteger)numberOfItemViewForSectionIndexView:(LBIndexView *)sectionIndexView {
+    return self.cityTableView.numberOfSections;
+}
 
+- (NSString *)sectionIndexView:(LBIndexView *)sectionIndexView
+               titleForSection:(NSInteger)section {
+    NSMutableArray* sectionArr = @[].mutableCopy;
+    [self.dataSource enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
+        NSMutableDictionary* dict = object;
+        [sectionArr addObject:dict[@"cityId"]];
+    }];
+    
+    return sectionArr[section];
+}
+#pragma mark - LBIndexViewDelegate
+- (void)sectionIndexView:(LBIndexView *)sectionIndexView didSelectSection:(NSInteger)section {
+    NSMutableDictionary* dict = self.dataSource[section];
+    NSMutableDictionary* dictionary = self.dataSource.count<=section?self.dataSource[section+1]:@{}.mutableCopy;
+    NSMutableArray* arr = [NSMutableArray arrayWithArray:dict[@"cityName"]];
+    NSMutableArray* array = [NSMutableArray arrayWithArray:dictionary[@"cityName"]];
+    if (arr.count <= 0) {
+        section = section+1;
+        if (array.count <= 0) {
+            section = section+1;
+        }
+    }
+    [self.cityTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+#pragma mark - lazy load
 - (UITableView *)cityTableView {
     if (!_cityTableView) {
         _cityTableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
         _cityTableView.delegate = self;
         _cityTableView.dataSource = self;
         _cityTableView.tableFooterView = [UIView new];
-        _cityTableView.sectionIndexColor = LBUIColorWithRGB(0x228B22, 1);
-        _cityTableView.sectionIndexBackgroundColor = [UIColor clearColor];  //背景颜色
         if (@available(iOS 11.0, *)) {
             _cityTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
@@ -403,6 +446,16 @@
         _activity.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     }
     return _activity;
+}
+
+- (LBIndexView *)indexView {
+    if (!_indexView) {
+        _indexView = [LBIndexView new];
+        _indexView.dataSource = self;
+        _indexView.delegate = self;
+        _indexView.schemeColor = LBUIColorWithRGB(0x228B22, 1);
+    }
+    return _indexView;
 }
 
 @end

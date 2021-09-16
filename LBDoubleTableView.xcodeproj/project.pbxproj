@@ -18,6 +18,8 @@
 		0D58C80B26EF5003000F45B2 /* LBTextHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C80826EF5003000F45B2 /* LBTextHUD.m */; };
 		0D58C80C26EF5003000F45B2 /* LBBorderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C80926EF5003000F45B2 /* LBBorderLabel.m */; };
 		0D58C81026F0860A000F45B2 /* LBUserDefaultTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C80F26F0860A000F45B2 /* LBUserDefaultTool.m */; };
+		0D58C81426F1C8BB000F45B2 /* LBIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C81326F1C8BB000F45B2 /* LBIndexView.m */; };
+		0D58C81726F1D12A000F45B2 /* LBIndexItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C81626F1D12A000F45B2 /* LBIndexItemView.m */; };
 		0DF6A69126E744B9004B56D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A69026E744B9004B56D8 /* AppDelegate.m */; };
 		0DF6A69426E744B9004B56D8 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A69326E744B9004B56D8 /* SceneDelegate.m */; };
 		0DF6A69726E744B9004B56D8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A69626E744B9004B56D8 /* ViewController.m */; };
@@ -75,6 +77,10 @@
 		0D58C80A26EF5003000F45B2 /* LBTextHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBTextHUD.h; sourceTree = "<group>"; };
 		0D58C80E26F0860A000F45B2 /* LBUserDefaultTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBUserDefaultTool.h; sourceTree = "<group>"; };
 		0D58C80F26F0860A000F45B2 /* LBUserDefaultTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBUserDefaultTool.m; sourceTree = "<group>"; };
+		0D58C81226F1C8BB000F45B2 /* LBIndexView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBIndexView.h; sourceTree = "<group>"; };
+		0D58C81326F1C8BB000F45B2 /* LBIndexView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBIndexView.m; sourceTree = "<group>"; };
+		0D58C81526F1D12A000F45B2 /* LBIndexItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBIndexItemView.h; sourceTree = "<group>"; };
+		0D58C81626F1D12A000F45B2 /* LBIndexItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBIndexItemView.m; sourceTree = "<group>"; };
 		0DF6A68C26E744B9004B56D8 /* LBDoubleTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LBDoubleTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DF6A68F26E744B9004B56D8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0DF6A69026E744B9004B56D8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -186,6 +192,17 @@
 			path = LBTool;
 			sourceTree = "<group>";
 		};
+		0D58C81126F1C8A4000F45B2 /* LBIndexView */ = {
+			isa = PBXGroup;
+			children = (
+				0D58C81226F1C8BB000F45B2 /* LBIndexView.h */,
+				0D58C81326F1C8BB000F45B2 /* LBIndexView.m */,
+				0D58C81526F1D12A000F45B2 /* LBIndexItemView.h */,
+				0D58C81626F1D12A000F45B2 /* LBIndexItemView.m */,
+			);
+			path = LBIndexView;
+			sourceTree = "<group>";
+		};
 		0DF6A68326E744B8004B56D8 = {
 			isa = PBXGroup;
 			children = (
@@ -263,6 +280,7 @@
 		0DF6A6AD26E747F0004B56D8 /* LBViews */ = {
 			isa = PBXGroup;
 			children = (
+				0D58C81126F1C8A4000F45B2 /* LBIndexView */,
 				0D58C7EA26EAE533000F45B2 /* LBSearchView */,
 				0DF6A71226E9E9F3004B56D8 /* LBCityIndexView */,
 				0DF6A6EF26E89C83004B56D8 /* LBFoldView */,
@@ -498,6 +516,7 @@
 				0D58C80B26EF5003000F45B2 /* LBTextHUD.m in Sources */,
 				0DF6A6DA26E85D07004B56D8 /* LBDoubleTableViewController.m in Sources */,
 				0D58C80526EF4BA4000F45B2 /* NSDictionary+Log.m in Sources */,
+				0D58C81426F1C8BB000F45B2 /* LBIndexView.m in Sources */,
 				0DF6A69726E744B9004B56D8 /* ViewController.m in Sources */,
 				0DF6A71126E9E9E3004B56D8 /* LBCityIndexViewController.m in Sources */,
 				0DF6A6E526E8613F004B56D8 /* LBAllSectionView.m in Sources */,
@@ -512,6 +531,7 @@
 				0D58C7E626EA0130000F45B2 /* LBSearchView.m in Sources */,
 				0DF6A6A226E744C7004B56D8 /* main.m in Sources */,
 				0DF6A6F826E89ED8004B56D8 /* LBFoldBaseTableView.m in Sources */,
+				0D58C81726F1D12A000F45B2 /* LBIndexItemView.m in Sources */,
 				0DF6A6C226E75010004B56D8 /* LBChildTableView.m in Sources */,
 				0DF6A6E826E8617D004B56D8 /* LBAllSectionTableView.m in Sources */,
 				0DF6A71726E9E9F3004B56D8 /* LBCityIndexView.m in Sources */,
