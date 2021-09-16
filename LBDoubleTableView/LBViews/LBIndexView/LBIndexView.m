@@ -6,9 +6,53 @@
 //
 
 #import "LBIndexView.h"
-#import "LBIndexItemView.h"
 
-static NSInteger calloutW = 88;
+static NSInteger calloutW = 70;
+
+@interface LBIndexItemView()
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated;
+
+@property(nonatomic, assign)NSInteger section;
+@property(nonatomic, strong)UILabel* titleLabel;
+@property(nonatomic, strong)UIColor* schemeColor;
+
+@end
+
+@implementation LBIndexItemView
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self createUI];
+    }
+    return self;
+}
+
+- (void)createUI {
+    [self addSubview:self.titleLabel];
+    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.offset(0);
+    }];
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    _titleLabel.highlightedTextColor = self.schemeColor?self.schemeColor:LBUIColorWithRGB(0x228B22, 1);
+    [_titleLabel setHighlighted:highlighted];
+}
+
+- (UILabel *)titleLabel {
+    if (!_titleLabel) {
+        _titleLabel = [[UILabel alloc] init];
+        _titleLabel.font = [UIFont systemFontOfSize:12];
+        _titleLabel.textColor = [UIColor darkGrayColor];
+        _titleLabel.shadowColor = [UIColor whiteColor];
+        _titleLabel.shadowOffset = CGSizeMake(0, 1);
+        _titleLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _titleLabel;
+}
+
+@end
 
 @interface LBIndexView()
 
@@ -58,7 +102,7 @@ static NSInteger calloutW = 88;
 
 - (void)layoutItemViews {
     if (self.itemViewList.count) {
-      self.itemViewHeight = LBScreenH/3*2/(CGFloat)(self.itemViewList.count);
+        self.itemViewHeight = LBScreenH/3*2/(CGFloat)(self.itemViewList.count);
     }
     CGFloat offsetY = 0.f;
     for (UIView *itemView in self.itemViewList) {
@@ -114,14 +158,24 @@ static NSInteger calloutW = 88;
     if (self.isShowCallout) {
         if (_dataSource && [_dataSource respondsToSelector:@selector(sectionIndexView:titleForSection:)]) {
             self.calloutView.text = [_dataSource sectionIndexView:self titleForSection:section];
-            self.calloutView.font = [self.calloutView.text includeChinese]?[UIFont boldSystemFontOfSize:26]:[UIFont boldSystemFontOfSize:36];
+            self.calloutView.font = [UIFont boldSystemFontOfSize:[self.calloutView.text includeChinese]?calloutW/3:calloutW/2];
         }
-        [self.superview addSubview:self.calloutView];
-        [self.calloutView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.offset(0); // mas_equalTo((LBIndexItemView*)[self.itemViewList objectAtIndex:section]).offset(-70);//
-            make.width.height.mas_equalTo(calloutW);
-            make.centerY.mas_equalTo((LBIndexItemView*)[self.itemViewList objectAtIndex:section]);
-        }];
+        
+        [self addSubview:self.calloutView];
+        if (self.calloutViewType == CalloutViewTypeForDefault) {
+            [self.calloutView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.mas_equalTo((LBIndexItemView*)[self.itemViewList objectAtIndex:section]).offset(-calloutW);
+                make.width.mas_equalTo(2*calloutW*sin(M_PI_4));
+                make.height.mas_equalTo(calloutW);
+                make.centerY.mas_equalTo((LBIndexItemView*)[self.itemViewList objectAtIndex:section]);
+            }];
+        } else {
+            [self.calloutView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.mas_equalTo(self.superview);
+                make.width.height.mas_equalTo(calloutW);
+                make.centerY.mas_equalTo((LBIndexItemView*)[self.itemViewList objectAtIndex:section]);
+            }];
+        }
     }
     
     if (_delegate && [_delegate respondsToSelector:@selector(sectionIndexView:didSelectSection:)]) {
@@ -162,16 +216,25 @@ static NSInteger calloutW = 88;
 - (UILabel *)calloutView {
     if (!_calloutView) {
         _calloutView = [UILabel new];
-        _calloutView.backgroundColor = [UIColor clearColor];
-        _calloutView.textColor = self.schemeColor?self.schemeColor:LBUIColorWithRGB(0x228B22, 1);
+        NSArray* arr = [UIColor getRGBWithColor:self.schemeColor];
+        UIColor* color = [UIColor colorWithRed:[arr.firstObject doubleValue] green:[arr[1] doubleValue] blue:[arr[2] doubleValue]alpha:[arr.lastObject doubleValue]/2.00];
+        if (self.calloutViewType == CalloutViewTypeForDefault) {
+            _calloutView.layer.backgroundColor = self.schemeColor?color.CGColor:LBUIColorWithRGB(0xDCDCDC, 1).CGColor;
+            CAShapeLayer *maskLayer = [CAShapeLayer layer];
+            maskLayer.path = [UIBezierPath drawIndicatorPath:calloutW].CGPath;
+            _calloutView.layer.mask = maskLayer;
+        } else {
+            _calloutView.backgroundColor = [UIColor clearColor];
+            _calloutView.layer.cornerRadius = calloutW/2;
+            _calloutView.layer.borderWidth = 3.0f;
+            _calloutView.layer.borderColor = self.schemeColor?color.CGColor:[UIColor lightGrayColor].CGColor;
+            _calloutView.layer.shadowColor = self.schemeColor?self.schemeColor.CGColor:[UIColor blackColor].CGColor;
+            _calloutView.layer.shadowOpacity = .8;
+            _calloutView.layer.shadowRadius = 5.0f;
+            _calloutView.layer.shadowOffset = CGSizeMake(2.0, 2.0);
+        }
+        _calloutView.textColor = self.schemeColor?self.schemeColor:LBUIColorWithRGB(0xFFFFFF, 1);
         _calloutView.textAlignment = NSTextAlignmentCenter;
-        [_calloutView.layer setCornerRadius:calloutW/2];
-        [_calloutView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-        [_calloutView.layer setBorderWidth:3.0f];
-        [_calloutView.layer setShadowColor:[UIColor blackColor].CGColor];
-        [_calloutView.layer setShadowOpacity:0.8];
-        [_calloutView.layer setShadowRadius:5.0];
-        [_calloutView.layer setShadowOffset:CGSizeMake(2.0, 2.0)];
     }
     return _calloutView;
 }
@@ -182,5 +245,7 @@ static NSInteger calloutW = 88;
     }
     return _itemViewList;
 }
+
+
 
 @end

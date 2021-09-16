@@ -7,7 +7,6 @@
 
 #import "LBCityIndexTableView.h"
 #import "LBIndexView.h"
-#import "LBIndexItemView.h"
 
 @interface LBCollectionCell()
 
@@ -453,7 +452,10 @@
         _indexView = [LBIndexView new];
         _indexView.dataSource = self;
         _indexView.delegate = self;
-        _indexView.schemeColor = LBUIColorWithRGB(0x228B22, 1);
+        
+        /*设置indexView的属性*/
+//        _indexView.schemeColor = LBUIColorWithRGB(0x228B22, 1);
+//        _indexView.calloutViewType = 1;
     }
     return _indexView;
 }

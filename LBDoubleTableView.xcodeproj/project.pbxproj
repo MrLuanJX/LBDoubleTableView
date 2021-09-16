@@ -11,15 +11,14 @@
 		0D58C7F026EAE6EF000F45B2 /* LBSearchBtnView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C7EF26EAE6EF000F45B2 /* LBSearchBtnView.m */; };
 		0D58C7F326EB284F000F45B2 /* LBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C7F226EB284F000F45B2 /* LBTextField.m */; };
 		0D58C7F626EEE414000F45B2 /* LBSearchTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C7F526EEE414000F45B2 /* LBSearchTableView.m */; };
-		0D58C7F926EF3C90000F45B2 /* NSObject+GetIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C7F826EF3C90000F45B2 /* NSObject+GetIP.m */; };
-		0D58C7FF26EF42CB000F45B2 /* LBLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C7FE26EF42CB000F45B2 /* LBLocation.m */; };
 		0D58C80226EF4B79000F45B2 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C80126EF4B79000F45B2 /* NSArray+Log.m */; };
 		0D58C80526EF4BA4000F45B2 /* NSDictionary+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C80426EF4BA4000F45B2 /* NSDictionary+Log.m */; };
 		0D58C80B26EF5003000F45B2 /* LBTextHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C80826EF5003000F45B2 /* LBTextHUD.m */; };
 		0D58C80C26EF5003000F45B2 /* LBBorderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C80926EF5003000F45B2 /* LBBorderLabel.m */; };
 		0D58C81026F0860A000F45B2 /* LBUserDefaultTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C80F26F0860A000F45B2 /* LBUserDefaultTool.m */; };
 		0D58C81426F1C8BB000F45B2 /* LBIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C81326F1C8BB000F45B2 /* LBIndexView.m */; };
-		0D58C81726F1D12A000F45B2 /* LBIndexItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C81626F1D12A000F45B2 /* LBIndexItemView.m */; };
+		0D58C81A26F32CCF000F45B2 /* UIColor+GetRGBA.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C81926F32CCF000F45B2 /* UIColor+GetRGBA.m */; };
+		0D58C81D26F32DBC000F45B2 /* UIBezierPath+DrawIndicatorPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C81C26F32DBC000F45B2 /* UIBezierPath+DrawIndicatorPath.m */; };
 		0DF6A69126E744B9004B56D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A69026E744B9004B56D8 /* AppDelegate.m */; };
 		0DF6A69426E744B9004B56D8 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A69326E744B9004B56D8 /* SceneDelegate.m */; };
 		0DF6A69726E744B9004B56D8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A69626E744B9004B56D8 /* ViewController.m */; };
@@ -63,10 +62,6 @@
 		0D58C7F226EB284F000F45B2 /* LBTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBTextField.m; sourceTree = "<group>"; };
 		0D58C7F426EEE414000F45B2 /* LBSearchTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBSearchTableView.h; sourceTree = "<group>"; };
 		0D58C7F526EEE414000F45B2 /* LBSearchTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBSearchTableView.m; sourceTree = "<group>"; };
-		0D58C7F726EF3C90000F45B2 /* NSObject+GetIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+GetIP.h"; sourceTree = "<group>"; };
-		0D58C7F826EF3C90000F45B2 /* NSObject+GetIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+GetIP.m"; sourceTree = "<group>"; };
-		0D58C7FD26EF42CB000F45B2 /* LBLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBLocation.h; sourceTree = "<group>"; };
-		0D58C7FE26EF42CB000F45B2 /* LBLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBLocation.m; sourceTree = "<group>"; };
 		0D58C80026EF4B79000F45B2 /* NSArray+Log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+Log.h"; sourceTree = "<group>"; };
 		0D58C80126EF4B79000F45B2 /* NSArray+Log.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Log.m"; sourceTree = "<group>"; };
 		0D58C80326EF4BA4000F45B2 /* NSDictionary+Log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Log.h"; sourceTree = "<group>"; };
@@ -79,8 +74,10 @@
 		0D58C80F26F0860A000F45B2 /* LBUserDefaultTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBUserDefaultTool.m; sourceTree = "<group>"; };
 		0D58C81226F1C8BB000F45B2 /* LBIndexView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBIndexView.h; sourceTree = "<group>"; };
 		0D58C81326F1C8BB000F45B2 /* LBIndexView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBIndexView.m; sourceTree = "<group>"; };
-		0D58C81526F1D12A000F45B2 /* LBIndexItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBIndexItemView.h; sourceTree = "<group>"; };
-		0D58C81626F1D12A000F45B2 /* LBIndexItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBIndexItemView.m; sourceTree = "<group>"; };
+		0D58C81826F32CCF000F45B2 /* UIColor+GetRGBA.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+GetRGBA.h"; sourceTree = "<group>"; };
+		0D58C81926F32CCF000F45B2 /* UIColor+GetRGBA.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GetRGBA.m"; sourceTree = "<group>"; };
+		0D58C81B26F32DBC000F45B2 /* UIBezierPath+DrawIndicatorPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+DrawIndicatorPath.h"; sourceTree = "<group>"; };
+		0D58C81C26F32DBC000F45B2 /* UIBezierPath+DrawIndicatorPath.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+DrawIndicatorPath.m"; sourceTree = "<group>"; };
 		0DF6A68C26E744B9004B56D8 /* LBDoubleTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LBDoubleTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DF6A68F26E744B9004B56D8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0DF6A69026E744B9004B56D8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -197,8 +194,6 @@
 			children = (
 				0D58C81226F1C8BB000F45B2 /* LBIndexView.h */,
 				0D58C81326F1C8BB000F45B2 /* LBIndexView.m */,
-				0D58C81526F1D12A000F45B2 /* LBIndexItemView.h */,
-				0D58C81626F1D12A000F45B2 /* LBIndexItemView.m */,
 			);
 			path = LBIndexView;
 			sourceTree = "<group>";
@@ -304,8 +299,6 @@
 		0DF6A6B626E74A65004B56D8 /* LBCategory */ = {
 			isa = PBXGroup;
 			children = (
-				0D58C7F726EF3C90000F45B2 /* NSObject+GetIP.h */,
-				0D58C7F826EF3C90000F45B2 /* NSObject+GetIP.m */,
 				0DF6A6FC26E8B34F004B56D8 /* UIView+JFBorders.h */,
 				0DF6A6FD26E8B34F004B56D8 /* UIView+JFBorders.m */,
 				0DF6A6BB26E74A8F004B56D8 /* UIImage+Extension.h */,
@@ -316,12 +309,14 @@
 				0DF6A6D326E76928004B56D8 /* MJRefresh+learnBorrow.m */,
 				0DF6A70C26E9B60E004B56D8 /* NSString+transformPY.h */,
 				0DF6A70D26E9B60E004B56D8 /* NSString+transformPY.m */,
-				0D58C7FD26EF42CB000F45B2 /* LBLocation.h */,
-				0D58C7FE26EF42CB000F45B2 /* LBLocation.m */,
 				0D58C80026EF4B79000F45B2 /* NSArray+Log.h */,
 				0D58C80126EF4B79000F45B2 /* NSArray+Log.m */,
 				0D58C80326EF4BA4000F45B2 /* NSDictionary+Log.h */,
 				0D58C80426EF4BA4000F45B2 /* NSDictionary+Log.m */,
+				0D58C81826F32CCF000F45B2 /* UIColor+GetRGBA.h */,
+				0D58C81926F32CCF000F45B2 /* UIColor+GetRGBA.m */,
+				0D58C81B26F32DBC000F45B2 /* UIBezierPath+DrawIndicatorPath.h */,
+				0D58C81C26F32DBC000F45B2 /* UIBezierPath+DrawIndicatorPath.m */,
 			);
 			path = LBCategory;
 			sourceTree = "<group>";
@@ -517,12 +512,11 @@
 				0DF6A6DA26E85D07004B56D8 /* LBDoubleTableViewController.m in Sources */,
 				0D58C80526EF4BA4000F45B2 /* NSDictionary+Log.m in Sources */,
 				0D58C81426F1C8BB000F45B2 /* LBIndexView.m in Sources */,
+				0D58C81A26F32CCF000F45B2 /* UIColor+GetRGBA.m in Sources */,
 				0DF6A69726E744B9004B56D8 /* ViewController.m in Sources */,
 				0DF6A71126E9E9E3004B56D8 /* LBCityIndexViewController.m in Sources */,
 				0DF6A6E526E8613F004B56D8 /* LBAllSectionView.m in Sources */,
 				0DF6A6FE26E8B350004B56D8 /* UIView+JFBorders.m in Sources */,
-				0D58C7FF26EF42CB000F45B2 /* LBLocation.m in Sources */,
-				0D58C7F926EF3C90000F45B2 /* NSObject+GetIP.m in Sources */,
 				0DF6A69126E744B9004B56D8 /* AppDelegate.m in Sources */,
 				0DF6A6EB26E86256004B56D8 /* LBAllSectionBaseTableView.m in Sources */,
 				0DF6A6BF26E74F31004B56D8 /* LBBaseTableView.m in Sources */,
@@ -531,7 +525,6 @@
 				0D58C7E626EA0130000F45B2 /* LBSearchView.m in Sources */,
 				0DF6A6A226E744C7004B56D8 /* main.m in Sources */,
 				0DF6A6F826E89ED8004B56D8 /* LBFoldBaseTableView.m in Sources */,
-				0D58C81726F1D12A000F45B2 /* LBIndexItemView.m in Sources */,
 				0DF6A6C226E75010004B56D8 /* LBChildTableView.m in Sources */,
 				0DF6A6E826E8617D004B56D8 /* LBAllSectionTableView.m in Sources */,
 				0DF6A71726E9E9F3004B56D8 /* LBCityIndexView.m in Sources */,
@@ -545,6 +538,7 @@
 				0D58C7F326EB284F000F45B2 /* LBTextField.m in Sources */,
 				0DF6A71826E9E9F3004B56D8 /* LBCityIndexTableView.m in Sources */,
 				0D58C80C26EF5003000F45B2 /* LBBorderLabel.m in Sources */,
+				0D58C81D26F32DBC000F45B2 /* UIBezierPath+DrawIndicatorPath.m in Sources */,
 				0DF6A6F526E89D08004B56D8 /* LBFoldViewController.m in Sources */,
 				0DF6A6EE26E862A3004B56D8 /* LBAllSectionChildTableView.m in Sources */,
 				0D58C81026F0860A000F45B2 /* LBUserDefaultTool.m in Sources */,
