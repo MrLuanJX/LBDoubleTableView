@@ -455,9 +455,9 @@
         _indexView.dataSource = self;
         _indexView.delegate = self;
         /*设置indexView的属性*/
-//        _indexView.schemeColor = LBUIColorWithRGB(0x228B22, 1);
-//        _indexView.calloutViewType = 1;
-//        _indexView.titleBGViewType = 1;
+        _indexView.schemeColor = LBUIColorWithRGB(0x228B22, 1);
+        _indexView.calloutViewType = 1;
+        _indexView.titleBGViewType = 1;
     }
     return _indexView;
 }
