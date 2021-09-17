@@ -28,6 +28,11 @@ typedef enum {
     CalloutViewTypeForSuspen
 }LBCalloutViewType;
 
+typedef enum {
+    TitleViewTypeForDefault,
+    TitleViewTypeForBGView
+}LBTitleBgViewType;
+
 @interface LBIndexItemView : UIView
 
 @end
@@ -41,6 +46,8 @@ typedef enum {
 @property(nonatomic, assign)BOOL isShowCallout;
 // 选中提示图的样式
 @property(nonatomic, assign)NSInteger calloutViewType;
+// 选中背景的样式
+@property(nonatomic, assign)NSInteger titleBGViewType;
 // 提示图的主题色
 @property(nonatomic, strong)UIColor* schemeColor;
 

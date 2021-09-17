@@ -423,8 +423,10 @@
             section = section+1;
         }
     }
+        
     [self.cityTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
+
 #pragma mark - lazy load
 - (UITableView *)cityTableView {
     if (!_cityTableView) {
@@ -452,10 +454,10 @@
         _indexView = [LBIndexView new];
         _indexView.dataSource = self;
         _indexView.delegate = self;
-        
         /*设置indexView的属性*/
 //        _indexView.schemeColor = LBUIColorWithRGB(0x228B22, 1);
 //        _indexView.calloutViewType = 1;
+//        _indexView.titleBGViewType = 1;
     }
     return _indexView;
 }

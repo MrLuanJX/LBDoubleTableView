@@ -11,7 +11,7 @@ static NSInteger calloutW = 70;
 
 @interface LBIndexItemView()
 
-- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated;
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated section:(NSInteger)section type:(NSInteger)type;
 
 @property(nonatomic, assign)NSInteger section;
 @property(nonatomic, strong)UILabel* titleLabel;
@@ -31,12 +31,25 @@ static NSInteger calloutW = 70;
 - (void)createUI {
     [self addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.offset(0);
+        make.left.right.offset(0);
+        make.top.offset(0);
+        make.bottom.offset(0);
     }];
 }
 
-- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-    _titleLabel.highlightedTextColor = self.schemeColor?self.schemeColor:LBUIColorWithRGB(0x228B22, 1);
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    self.titleLabel.layer.cornerRadius = LBScreenH/3*2/28/2;
+    self.titleLabel.clipsToBounds = YES;
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated section:(NSInteger)section type:(NSInteger)type {
+    if (type == 1) {
+        _titleLabel.highlightedTextColor = section!=0&&section!=1?self.schemeColor?LBUIColorWithRGB(0xFFFFFF, 1):LBUIColorWithRGB(0x228B22, 1):LBUIColorWithRGB(0x228B22, 1);
+    } else {
+        _titleLabel.highlightedTextColor = self.schemeColor?self.schemeColor:LBUIColorWithRGB(0x228B22, 1);
+    }
+    
     [_titleLabel setHighlighted:highlighted];
 }
 
@@ -48,6 +61,7 @@ static NSInteger calloutW = 70;
         _titleLabel.shadowColor = [UIColor whiteColor];
         _titleLabel.shadowOffset = CGSizeMake(0, 1);
         _titleLabel.textAlignment = NSTextAlignmentCenter;
+        
     }
     return _titleLabel;
 }
@@ -62,6 +76,8 @@ static NSInteger calloutW = 70;
 @property(nonatomic, strong)NSMutableArray* itemViewList;
 @property(nonatomic, assign)CGFloat itemViewHeight;
 @property(nonatomic, assign)NSInteger highlightedItemIndex;
+@property(nonatomic, assign)NSInteger lastSelectIndex;
+
 @end
 
 @implementation LBIndexView
@@ -104,11 +120,18 @@ static NSInteger calloutW = 70;
     if (self.itemViewList.count) {
         self.itemViewHeight = LBScreenH/3*2/(CGFloat)(self.itemViewList.count);
     }
-    CGFloat offsetY = 0.f;
-    for (UIView *itemView in self.itemViewList) {
-        itemView.frame = CGRectMake(0, offsetY, LBFit(30), self.itemViewHeight);
+    __block CGFloat offsetY = 0.f;
+    [self.itemViewList enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
+        LBIndexItemView *itemView = object;
+        [itemView setHighlighted:NO animated:NO section:idx type:self.titleBGViewType];
+        [itemView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.offset(0);
+            make.top.offset(offsetY);
+            make.width.mas_equalTo(idx==0||idx==1?LBFit(30):self.itemViewHeight);
+            make.height.mas_equalTo(self.itemViewHeight);
+        }];
         offsetY += self.itemViewHeight;
-    }
+    }];
 }
 
 #pragma mark methods of touch
@@ -177,7 +200,20 @@ static NSInteger calloutW = 70;
             }];
         }
     }
-    
+    if (self.titleBGViewType == TitleViewTypeForBGView) {
+        LBIndexItemView* itemView = self.itemViewList[section];
+        LBIndexItemView* lastItemView = self.itemViewList[self.lastSelectIndex];
+        if (self.lastSelectIndex != section) {
+            if (section !=0 && section !=1) {
+                itemView.titleLabel.backgroundColor = self.schemeColor?self.schemeColor:LBUIColorWithRGB(0x01ab58, 1);
+                itemView.titleLabel.textColor = [UIColor whiteColor];
+            }
+            lastItemView.titleLabel.backgroundColor = [UIColor clearColor];
+            lastItemView.titleLabel.textColor = [UIColor darkGrayColor];
+            self.lastSelectIndex = section;
+        }
+    }
+   
     if (_delegate && [_delegate respondsToSelector:@selector(sectionIndexView:didSelectSection:)]) {
         [_delegate sectionIndexView:self didSelectSection:section];
     }
@@ -187,7 +223,7 @@ static NSInteger calloutW = 70;
     [self unhighlightAllItems];
     
     LBIndexItemView *itemView = [self.itemViewList objectAtIndex:section];
-    [itemView setHighlighted:YES animated:YES];
+    [itemView setHighlighted:YES animated:YES section:section type:self.titleBGViewType];
 }
 
 - (void)unhighlightAllItems {
@@ -197,9 +233,11 @@ static NSInteger calloutW = 70;
             self.calloutView = nil;
         }
     }
-    for (LBIndexItemView *itemView in self.itemViewList) {
-        [itemView setHighlighted:NO animated:NO];
-    }
+    
+    [self.itemViewList enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
+        LBIndexItemView *itemView = object;
+        [itemView setHighlighted:NO animated:NO section:idx type:self.titleBGViewType];
+    }];
 }
 
 - (UIView *)bgView {
@@ -207,8 +245,7 @@ static NSInteger calloutW = 70;
         _bgView = [UIView new];
         _bgView.clipsToBounds = YES;
         _bgView.layer.cornerRadius = 12.f;
-        _bgView.backgroundColor = [UIColor clearColor];
-        [_bgView setHidden:YES];
+        _bgView.hidden = YES;
     }
     return _bgView;
 }
@@ -245,7 +282,5 @@ static NSInteger calloutW = 70;
     }
     return _itemViewList;
 }
-
-
 
 @end
