@@ -82,11 +82,11 @@
         self.didSelectCellCallback(indexPath,cell);
     }
 }
-
+#pragma mark - rightTableView滚动监听回调
 - (void)scrollwithIndex:(NSIndexPath *)index {
     self.selectedIndex = index;
     //tableview滚动到指定的行：
-    [self.baseTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index.row inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    [self.baseTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index.row inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     [self.baseTableView reloadData];
 }
     

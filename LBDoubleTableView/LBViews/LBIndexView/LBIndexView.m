@@ -72,7 +72,6 @@ static NSInteger calloutW = 70;
 
 @property(nonatomic, strong)UIView* bgView;
 @property(nonatomic, strong)UILabel* calloutView;
-
 @property(nonatomic, strong)NSMutableArray* itemViewList;
 @property(nonatomic, assign)CGFloat itemViewHeight;
 @property(nonatomic, assign)NSInteger highlightedItemIndex;
@@ -97,7 +96,7 @@ static NSInteger calloutW = 70;
         make.left.right.top.bottom.offset(0);
     }];
 }
-
+// 创建数据源
 - (void)reloadIndexView {
     NSInteger numberOfItems = 0;
     if (_dataSource && [_dataSource respondsToSelector:@selector(numberOfItemViewForSectionIndexView:)]) {
@@ -115,7 +114,7 @@ static NSInteger calloutW = 70;
     }
     [self layoutItemViews];
 }
-
+// 布局
 - (void)layoutItemViews {
     if (self.itemViewList.count) {
         self.itemViewHeight = LBScreenH/3*2/(CGFloat)(self.itemViewList.count);
@@ -138,8 +137,9 @@ static NSInteger calloutW = 70;
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     self.bgView.hidden = NO;
     UITouch *touch = [touches anyObject];
+    // 获取到touch的point
     CGPoint touchPoint = [touch locationInView:self];
-    
+    // 遍历indexView的数据源，做点击操作和highlight操作
     for (LBIndexItemView *itemView in self.itemViewList) {
         if (CGRectContainsPoint(itemView.frame, touchPoint)) {
             [self selectItemViewForSection:itemView.section];
@@ -152,9 +152,9 @@ static NSInteger calloutW = 70;
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     self.bgView.hidden = NO;
-    
     UITouch *touch = [touches anyObject];
     CGPoint touchPoint = [touch locationInView:self];
+    
     for (LBIndexItemView *itemView in self.itemViewList) {
         if (CGRectContainsPoint(itemView.frame, touchPoint)) {
             if (itemView.section != self.highlightedItemIndex) {
@@ -168,6 +168,7 @@ static NSInteger calloutW = 70;
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
     self.bgView.hidden = YES;
+    // 取消所有higlight的item
     [self unhighlightAllItems];
     self.highlightedItemIndex = -1;
 }
@@ -178,40 +179,13 @@ static NSInteger calloutW = 70;
 
 - (void)selectItemViewForSection:(NSInteger)section {
     [self highlightItemForSection:section];
+    // calloutView
     if (self.isShowCallout) {
-        if (_dataSource && [_dataSource respondsToSelector:@selector(sectionIndexView:titleForSection:)]) {
-            self.calloutView.text = [_dataSource sectionIndexView:self titleForSection:section];
-            self.calloutView.font = [UIFont boldSystemFontOfSize:[self.calloutView.text includeChinese]?calloutW/3:calloutW/2];
-        }
-        
-        [self addSubview:self.calloutView];
-        if (self.calloutViewType == CalloutViewTypeForDefault) {
-            [self.calloutView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.mas_equalTo((LBIndexItemView*)[self.itemViewList objectAtIndex:section]).offset(-calloutW);
-                make.width.mas_equalTo(2*calloutW*sin(M_PI_4));
-                make.height.mas_equalTo(calloutW);
-                make.centerY.mas_equalTo((LBIndexItemView*)[self.itemViewList objectAtIndex:section]);
-            }];
-        } else {
-            [self.calloutView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.mas_equalTo(self.superview);
-                make.width.height.mas_equalTo(calloutW);
-                make.centerY.mas_equalTo((LBIndexItemView*)[self.itemViewList objectAtIndex:section]);
-            }];
-        }
+        [self setupCalloutView:section];
     }
+    // titleBGView颜色变换
     if (self.titleBGViewType == TitleViewTypeForBGView) {
-        LBIndexItemView* itemView = self.itemViewList[section];
-        LBIndexItemView* lastItemView = self.itemViewList[self.lastSelectIndex];
-        if (self.lastSelectIndex != section) {
-            if (section !=0 && section !=1) {
-                itemView.titleLabel.backgroundColor = self.schemeColor?self.schemeColor:LBUIColorWithRGB(0x01ab58, 1);
-                itemView.titleLabel.textColor = [UIColor whiteColor];
-            }
-            lastItemView.titleLabel.backgroundColor = [UIColor clearColor];
-            lastItemView.titleLabel.textColor = [UIColor darkGrayColor];
-            self.lastSelectIndex = section;
-        }
+        [self setupTitleBGView:section];
     }
    
     if (_delegate && [_delegate respondsToSelector:@selector(sectionIndexView:didSelectSection:)]) {
@@ -238,6 +212,43 @@ static NSInteger calloutW = 70;
         LBIndexItemView *itemView = object;
         [itemView setHighlighted:NO animated:NO section:idx type:self.titleBGViewType];
     }];
+}
+
+- (void)setupCalloutView:(NSInteger)section {
+    [self addSubview:self.calloutView];
+    if (_dataSource && [_dataSource respondsToSelector:@selector(sectionIndexView:titleForSection:)]) {
+        self.calloutView.text = [_dataSource sectionIndexView:self titleForSection:section];
+        self.calloutView.font = [UIFont boldSystemFontOfSize:[self.calloutView.text includeChinese]?calloutW/3:calloutW/2];
+    }
+    // calloutView布局
+    if (self.calloutViewType == CalloutViewTypeForDefault) {
+        [self.calloutView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.mas_equalTo((LBIndexItemView*)[self.itemViewList objectAtIndex:section]).offset(-calloutW);
+            make.width.mas_equalTo(2*calloutW*sin(M_PI_4));
+            make.height.mas_equalTo(calloutW);
+            make.centerY.mas_equalTo((LBIndexItemView*)[self.itemViewList objectAtIndex:section]);
+        }];
+    } else {
+        [self.calloutView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.mas_equalTo(self.superview);
+            make.width.height.mas_equalTo(calloutW);
+            make.centerY.mas_equalTo((LBIndexItemView*)[self.itemViewList objectAtIndex:section]);
+        }];
+    }
+}
+
+- (void)setupTitleBGView:(NSInteger)section {
+    LBIndexItemView* itemView = self.itemViewList[section];
+    LBIndexItemView* lastItemView = self.itemViewList[self.lastSelectIndex];
+    if (self.lastSelectIndex != section) {
+        if (section !=0 && section !=1) {
+            itemView.titleLabel.backgroundColor = self.schemeColor?self.schemeColor:LBUIColorWithRGB(0x01ab58, 1);
+            itemView.titleLabel.textColor = [UIColor whiteColor];
+        }
+        lastItemView.titleLabel.backgroundColor = [UIColor clearColor];
+        lastItemView.titleLabel.textColor = [UIColor darkGrayColor];
+        self.lastSelectIndex = section;
+    }
 }
 
 - (UIView *)bgView {

@@ -10,7 +10,7 @@
 @implementation UIColor (GetRGBA)
 
 // 获取颜色值的RGBA
-+(NSArray *)getRGBWithColor:(UIColor *)color {
++ (NSArray *)getRGBWithColor:(UIColor *)color {
     CGFloat red = 0.0;
     CGFloat green = 0.0;
     CGFloat blue = 0.0;

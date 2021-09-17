@@ -104,14 +104,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     NSMutableDictionary* dict = self.dataSource[indexPath.section];
-    NSString* selectRow = dict[@"cityName"][indexPath.row];
+    NSString* selectText = dict[@"cityName"][indexPath.row];
     if (self.selectCallback) {
-        self.selectCallback(selectRow);
+        self.selectCallback(selectText);
     }
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
 }
 
 - (UITableView *)searchTableView {

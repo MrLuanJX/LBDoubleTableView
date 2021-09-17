@@ -11,8 +11,10 @@
 
 @property(nonatomic, strong)UITableView* foldTableView;
 @property(nonatomic, strong)NSMutableArray* dataSource;
+// 是否可以展开
 @property(nonatomic, assign)BOOL isFlod;
-@property(nonatomic, assign)NSInteger currentFlod;
+// 当前展开的index
+@property(nonatomic, assign)NSInteger currentIndex;
 
 @end
 
@@ -42,7 +44,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.currentFlod == section) {
+    if (self.currentIndex == section) {
         LBModel* childModel = self.dataSource[section];
         return self.isFlod==YES?childModel.cityList.count:0;
     }
@@ -58,40 +60,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    LBModel* baseModel = self.dataSource[section];
-    UIView* sectionView = [UIView new];
-    sectionView.backgroundColor = LBUIColorWithRGB(0xFFFFFF, 1);
-    // 线
-    UIView* lineView = [UIView new];
-    lineView.backgroundColor = LBUIColorWithRGB(0xF5F5F5, 1);
-    // 按钮
-    UIButton* sectionBtn = [UIButton new];
-    [sectionBtn setTitle:baseModel.name forState:UIControlStateNormal];
-    [sectionBtn setTitleColor:LBUIColorWithRGB(0x130202, 1) forState:UIControlStateNormal];
-    [sectionBtn setTitleColor:LBUIColorWithRGB(0xFFFFFF, 1) forState:UIControlStateSelected];
-    [sectionBtn setImage:[UIImage imageNamed:@"xiajiantou"] forState:UIControlStateNormal];
-    [sectionBtn setImage:[UIImage imageNamed:@"shangjiantou"] forState:UIControlStateSelected];
-    [sectionBtn addTarget:self action:@selector(sectionSelect:) forControlEvents:UIControlEventTouchUpInside];
-    sectionBtn.titleLabel.font = LBFontNameSize(Font_Regular, 16);
-    sectionBtn.selected = self.currentFlod==section&&self.isFlod==YES?YES:NO;
-    sectionBtn.backgroundColor = sectionBtn.selected?LBUIColorWithRGB(0x3CB371, 1):LBUIColorWithRGB(0xCDCDCD, 1);
-    //使图片在右边，文字在左边（正常情况下是文字在右边，图片在左边）
-    [sectionBtn setSemanticContentAttribute:UISemanticContentAttributeForceRightToLeft];
-    //设置图片和文字之间的间隙
-    sectionBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-    sectionBtn.tag = section;
-    [sectionView addSubview:sectionBtn];
-    [sectionView addSubview:lineView];
-    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.right.left.offset(0);
-        make.height.mas_equalTo(1);
-    }];
-    [sectionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.right.left.offset(0);
-        make.bottom.offset(-1);
-    }];
-
-    return sectionView;
+    return [self createSectionView:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -111,8 +80,45 @@
     return cell;
 }
 
+- (UIView *)createSectionView:(NSInteger)section {
+    LBModel* baseModel = self.dataSource[section];
+    UIView* sectionView = [UIView new];
+    sectionView.backgroundColor = LBUIColorWithRGB(0xFFFFFF, 1);
+    // 线
+    UIView* lineView = [UIView new];
+    lineView.backgroundColor = LBUIColorWithRGB(0xF5F5F5, 1);
+    // 按钮
+    UIButton* sectionBtn = [UIButton new];
+    [sectionBtn setTitle:baseModel.name forState:UIControlStateNormal];
+    [sectionBtn setTitleColor:LBUIColorWithRGB(0x130202, 1) forState:UIControlStateNormal];
+    [sectionBtn setTitleColor:LBUIColorWithRGB(0xFFFFFF, 1) forState:UIControlStateSelected];
+    [sectionBtn setImage:[UIImage imageNamed:@"xiajiantou"] forState:UIControlStateNormal];
+    [sectionBtn setImage:[UIImage imageNamed:@"shangjiantou"] forState:UIControlStateSelected];
+    [sectionBtn addTarget:self action:@selector(sectionSelect:) forControlEvents:UIControlEventTouchUpInside];
+    sectionBtn.titleLabel.font = LBFontNameSize(Font_Regular, 16);
+    sectionBtn.tag = section;
+    sectionBtn.selected = self.currentIndex==section&&self.isFlod==YES?YES:NO;
+    //设置图片和文字之间的间隙
+    sectionBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    sectionBtn.backgroundColor = sectionBtn.selected?LBUIColorWithRGB(0x3CB371, 1):LBUIColorWithRGB(0xCDCDCD, 1);
+    //使图片在右边，文字在左边（正常情况下是文字在右边，图片在左边）
+    [sectionBtn setSemanticContentAttribute:UISemanticContentAttributeForceRightToLeft];
+    [sectionView addSubview:sectionBtn];
+    [sectionView addSubview:lineView];
+    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.right.left.offset(0);
+        make.height.mas_equalTo(1);
+    }];
+    [sectionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.right.left.offset(0);
+        make.bottom.offset(-1);
+    }];
+
+    return sectionView;
+}
+
 - (void)sectionSelect:(UIButton*)sender {
-    self.currentFlod = sender.tag;
+    self.currentIndex = sender.tag;
     sender.selected = !sender.selected;
     self.isFlod = sender.selected;
     [self.foldTableView reloadData];

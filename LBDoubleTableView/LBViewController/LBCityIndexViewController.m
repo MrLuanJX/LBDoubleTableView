@@ -9,15 +9,13 @@
 #import "LBCityIndexView.h"
 #import "LBSearchBtnView.h"
 #import "LBSearchView.h"
-#import "LBSearchTableView.h"
 
 @interface LBCityIndexViewController ()
 
 @property(nonatomic, strong)LBSearchBtnView* searchBtnView;
 @property(nonatomic, strong)LBCityIndexView* cityIndexView;
-@property(nonatomic, strong)LBSearchTableView* searchTableView;
 @property(nonatomic, strong)NSMutableArray* dataArray;      // 城市数据
-@property(nonatomic, strong)NSMutableArray* pyArray;        // 拼音数据
+@property(nonatomic, strong)NSMutableArray* pyArray;        // 拼音首字母数据
 @property(nonatomic, strong)NSMutableArray* allArray;       // 所有数据
 @property(nonatomic, strong)NSMutableArray* historyArray;   // 历史数据
 
@@ -55,22 +53,24 @@
         make.top.left.right.bottom.offset(0);
     }];
 }
-
+// 选中的回调
 - (void)setupSelectCallback {
     LBWeakSelf(self);
     self.cityIndexView.selectCallback = ^(NSString *selectText) {
         LBStrongSelf(self);
+        // 更改上面搜索的btnTitle
         [self.searchBtnView setValue:selectText forKey:@"btnTitle"];
         // 列表页面选中返回
         [LBUserDefaultTool historyDefaultsWithText:selectText];
-        
+        // 弹出toast
         [LBTextHUD showIn:self.view Duration:1 Text:[NSString stringWithFormat:@"选中了: %@",selectText]];
+        // popViewController
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1* NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.navigationController popViewControllerAnimated:YES];
         });
     };
 }
-
+// searchBtn的回调
 - (void)setupSearchBtnView {
     [self.navigationItem.titleView sizeToFit];
     self.navigationItem.titleView = self.searchBtnView;
@@ -183,13 +183,6 @@
         _historyArray = @[].mutableCopy;
     }
     return _historyArray;
-}
-
-- (LBSearchTableView *)searchTableView {
-    if (!_searchTableView) {
-        _searchTableView = [LBSearchTableView new];
-    }
-    return _searchTableView;
 }
 
 @end

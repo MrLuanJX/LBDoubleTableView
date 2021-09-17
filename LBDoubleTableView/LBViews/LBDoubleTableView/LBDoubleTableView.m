@@ -43,24 +43,25 @@
         make.left.mas_equalTo(LBScreenW/3);
     }];
 }
-
+#pragma mark - leftTableView点击回调
 - (void)baseTableViewCallback {
-    WeakSelf(weakSelf);
+    LBWeakSelf(self);
     self.baseTableView.didSelectCellCallback = ^(NSIndexPath *indexPath, UITableViewCell *currentBaseCell) {
-        StrongSelf(strongSelf);
-        LBModel* model = strongSelf.dataSource[indexPath.row];
-        [strongSelf.childTableView setValue:model.cityList forKey:@"childData"];
-        [strongSelf.childTableView reload];
-        strongSelf.currentIndex = indexPath;
+        LBStrongSelf(self);
+        LBModel* model = self.dataSource[indexPath.row];
+        // 数据源传给rightTableView
+        [self.childTableView setValue:model.cityList forKey:@"childData"];
+        // 刷新rightTableView
+        [self.childTableView reload];
+        self.currentIndex = indexPath;
     };
 }
-
+#pragma mark - rightTableView刷新回调
 - (void)childTableCallback {
-    WeakSelf(weakSelf);
+    LBWeakSelf(self);
     self.childTableView.freshFinishCallback = ^ {
-        StrongSelf(strongSelf);
-        [strongSelf setCurrentIndexWithRow:strongSelf.currentIndex.row+1];
-        [strongSelf.baseTableView reload];
+        LBStrongSelf(self);
+        [self setCurrentIndexWithRow:self.currentIndex.row+1];
     };
 }
 
@@ -87,7 +88,9 @@
 
 - (void)setCurrentIndexWithRow:(NSInteger)row {
     NSIndexPath *currentIndex = [NSIndexPath indexPathForRow:row inSection:0];
+    // 调用leftTableView的didSelectRowAtIndexPath方法实现选中下一个indexPathRow
     [self.baseTableView tableView:self.baseTableView.baseTableView didSelectRowAtIndexPath:currentIndex];
+    // 记录当前选中的indexPath
     self.currentIndex = currentIndex;
     [self.baseTableView setValue:self.currentIndex forKey:@"selectedIndex"];
     

@@ -124,20 +124,24 @@
 }
 // 搜索input实时搜索
 - (void)setSearchWithInputText:(NSString *)inputText {
-    if (inputText.length > 0) {
+    if (inputText.length > 0) {     // 这里判断length要大于0，是因为汉字转拼音的方法不能传空值
         [self.searchArray removeAllObjects];
+        // length大于1，进行数据对比
         if ([NSString transform:inputText].length > 1) {
+            // 循环所有数据
             [self.dataSource enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
                 NSDictionary* dict = object;
+                // firstText A~Z字母
                 NSString* firstText = dict[@"cityId"];
-//                firstText = [firstText lowercaseString];  // 转小写
+                // 输入的（汉字转拼音）首字母是否属于A～Z之间 并拼接数据存入搜索数组searchArray中
                 if ([[NSString FirstCharactor:inputText] isEqualToString:firstText]) {
                     NSMutableDictionary* tempDict = @{}.mutableCopy;
                     NSMutableArray* tempArr = @[].mutableCopy;
                     tempDict[@"cityId"] = firstText;
+                    // 遍历所有城市的数组
                     [dict[@"cityName"] enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
                         NSString* cityName = object;
-                                                
+                        // 所有城市的拼音包含输入的拼音，就是符合的数据，存入搜索的数组中
                         if ([[NSString transform:cityName] containsString:[NSString transform:inputText]]) {
                             [tempArr addObject:cityName];
                         }

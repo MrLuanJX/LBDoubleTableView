@@ -8,6 +8,18 @@
 #import <UIKit/UIKit.h>
 @class LBIndexView;
 
+// calloutViewType
+typedef enum {
+    CalloutViewTypeForDefault,
+    CalloutViewTypeForSuspen
+}LBCalloutViewType;
+
+// titleViewType
+typedef enum {
+    TitleViewTypeForDefault,
+    TitleViewTypeForBGView
+}LBTitleBgViewType;
+
 @protocol LBIndexViewDataSource <NSObject>
 // 返回一共多少个section
 - (NSInteger)numberOfItemViewForSectionIndexView:(LBIndexView *)sectionIndexView;
@@ -20,19 +32,9 @@
 // 点击IndexItemView事件
 - (void)sectionIndexView:(LBIndexView *)sectionIndexView
         didSelectSection:(NSInteger)section;
-
 @end
 
-typedef enum {
-    CalloutViewTypeForDefault,
-    CalloutViewTypeForSuspen
-}LBCalloutViewType;
-
-typedef enum {
-    TitleViewTypeForDefault,
-    TitleViewTypeForBGView
-}LBTitleBgViewType;
-
+/* itemView */
 @interface LBIndexItemView : UIView
 
 @end
@@ -50,9 +52,8 @@ typedef enum {
 @property(nonatomic, assign)NSInteger titleBGViewType;
 // 提示图的主题色
 @property(nonatomic, strong)UIColor* schemeColor;
-
+// 刷新
 - (void)reloadIndexView;
-
 
 @end
 

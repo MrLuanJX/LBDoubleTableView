@@ -115,7 +115,7 @@
     if (self.index.section==0) {
         collectionCell.title.textColor = indexPath.item==0?LBUIColorWithRGB(0x228B22, 1):LBUIColorWithRGB(0x130202, 1);
         collectionCell.title.backgroundColor = indexPath.item==0?LBUIColorWithRGB(0x3CB371, .5):LBUIColorWithRGB(0xF5F5F5, 1);
-    } else  if (self.index.section==1) {
+    } else if (self.index.section==1) {
         collectionCell.title.textColor = [self.historyArray.firstObject isEqualToString:self.dataArray[indexPath.item]]?LBUIColorWithRGB(0x228B22, 1):LBUIColorWithRGB(0x130202, 1);
         collectionCell.title.backgroundColor = [self.historyArray.firstObject isEqualToString:self.dataArray[indexPath.item]]?LBUIColorWithRGB(0x3CB371, .5):LBUIColorWithRGB(0xF5F5F5, 1);
     }
@@ -298,9 +298,8 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSMutableDictionary* dict = self.dataSource.firstObject;
     NSMutableArray* arr = dict[@"cityName"];
-    
     CGFloat sectionZeroFloat = ceil(arr.count/3.0)*LBFit(40)+(ceil(arr.count/3.0)+1)*LBFit(10)<=50?50:ceil(arr.count/3.0)*LBFit(40)+(ceil(arr.count/3.0)+1)*LBFit(10);
-    
+
     return indexPath.section==0?sectionZeroFloat:indexPath.section==1?LBFit(360):LBFit(60);
 }
 
@@ -323,7 +322,7 @@
 }
 #pragma mark - tableViewDataSource
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0|| indexPath.section == 1) {
+    if (indexPath.section == 0 || indexPath.section == 1) {
         static NSString *cellId = @"historyCellID";
         LBHistoryCell* cell = [LBHistoryCell tableView:tableView dequeueReusableCellWithIdentifier:cellId];
         NSMutableDictionary* dict = self.dataSource[indexPath.section];
@@ -331,7 +330,7 @@
         cell.dataArray = cellArr;
         cell.index = indexPath;
         // callback回调
-        [self historyCellCallback:cell];
+        [self historyAndHotCellCallback:cell];
         
         return cell;
     }
@@ -353,18 +352,19 @@
     
     return cell;
 }
-#pragma mark - historyCellCallback
-- (void)historyCellCallback:(LBHistoryCell *)cell {
+#pragma mark - 历史和热门cell点击的回调--historyAndHotCellCallback
+- (void)historyAndHotCellCallback:(LBHistoryCell *)cell {
     LBWeakSelf(self);
     cell.collectionCallback = ^(NSString *selectText,NSInteger collectionSelectIndex,NSIndexPath *index) {
         LBStrongSelf(self);
-        if (index.section==1) {
+        if (index.section==1) { // 热门回调，存入缓存
             [LBUserDefaultTool saveHotSelectedData:collectionSelectIndex];
-        } else {
+        } else {                // 历史回调
             NSMutableDictionary* dict = self.dataSource[1];
             NSMutableArray* cellArr = dict[@"cityName"];
             // 清热门选中缓存，重新存
             [LBUserDefaultTool removeHotSelected];
+            // 查找热门中的数据与历史里选中的数据相同
             [cellArr enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
                 if ([object isEqualToString:selectText]) {
                     [LBUserDefaultTool saveHotSelectedData:idx];
@@ -380,15 +380,16 @@
 #pragma mark - tableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-        
+    // 下面tableView点击
     if (indexPath.section!=0&&indexPath.section!=1) {
         [LBUserDefaultTool removeHotSelected];
         NSMutableDictionary* dict = self.dataSource[indexPath.section];
-        NSString* selectRow = dict[@"cityName"][indexPath.row];
+        NSString* selectText = dict[@"cityName"][indexPath.row];
         if (self.selectCallback) {
-            self.selectCallback(selectRow);
+            self.selectCallback(selectText);
         }
     }
+    // cell选中的标记符变化和titleLabel颜色变化
     LBCityCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     LBCityCell *currentCell = [tableView cellForRowAtIndexPath:self.currentSelectedIndex];
     currentCell.cityLabel.textColor = LBUIColorWithRGB(0x130202, 1);
@@ -401,8 +402,7 @@
     return self.cityTableView.numberOfSections;
 }
 
-- (NSString *)sectionIndexView:(LBIndexView *)sectionIndexView
-               titleForSection:(NSInteger)section {
+- (NSString *)sectionIndexView:(LBIndexView *)sectionIndexView titleForSection:(NSInteger)section {
     NSMutableArray* sectionArr = @[].mutableCopy;
     [self.dataSource enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
         NSMutableDictionary* dict = object;
@@ -423,7 +423,7 @@
             section = section+1;
         }
     }
-        
+    // 避免section里面的row为空，滚动到顶部crash
     [self.cityTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
@@ -458,6 +458,7 @@
         _indexView.schemeColor = LBUIColorWithRGB(0x228B22, 1);
         _indexView.calloutViewType = 1;
         _indexView.titleBGViewType = 1;
+        _indexView.isShowCallout = YES;
     }
     return _indexView;
 }

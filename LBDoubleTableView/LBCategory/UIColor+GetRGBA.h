@@ -9,7 +9,7 @@
 
 @interface UIColor (GetRGBA)
 
-+(NSArray *)getRGBWithColor:(UIColor *)color;
++ (NSArray *)getRGBWithColor:(UIColor *)color;
 
 @end
 
