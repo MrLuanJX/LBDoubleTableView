@@ -388,7 +388,6 @@
 - (NSInteger)numberOfItemViewForSectionIndexView:(LBIndexView *)sectionIndexView {
     return self.cityTableView.numberOfSections;
 }
-
 - (NSString *)sectionIndexView:(LBIndexView *)sectionIndexView titleForSection:(NSInteger)section {
     NSMutableArray* sectionArr = @[].mutableCopy;
     [self.dataSource enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
@@ -464,8 +463,8 @@
         /*设置indexView的属性*/
         _indexView.schemeColor = LBUIColorWithRGB(0x228B22, 1);
         _indexView.calloutViewType = 1;
-        _indexView.titleBGViewType = 1;
-        _indexView.isShowCallout = YES;
+//        _indexView.titleBGViewType = 1;
+//        _indexView.isShowCallout = NO;
     }
     return _indexView;
 }

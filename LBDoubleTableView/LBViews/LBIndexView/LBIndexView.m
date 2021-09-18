@@ -183,10 +183,8 @@ static NSInteger calloutW = 70;
     if (self.isShowCallout) {
         [self setupCalloutView:section];
     }
-    // titleBGView颜色变换
-    if (self.titleBGViewType == TitleViewTypeForBGView) {
-        [self setupTitleBGView:section];
-    }
+    // titleBGView
+    [self setupTitleBGView:section];
    
     if (_delegate && [_delegate respondsToSelector:@selector(sectionIndexView:didSelectSection:)]) {
         [_delegate sectionIndexView:self didSelectSection:section];
@@ -239,16 +237,18 @@ static NSInteger calloutW = 70;
 
 - (void)setupTitleBGView:(NSInteger)section {
     // titleBGView颜色变换
-    LBIndexItemView* itemView = self.itemViewList[section];
-    LBIndexItemView* lastItemView = self.itemViewList[self.lastSelectIndex];
-    if (self.lastSelectIndex != section) {
-        self.lastSelectIndex = section;
-        if (section !=0 && section !=1) {
-            itemView.titleLabel.backgroundColor = self.schemeColor?self.schemeColor:LBUIColorWithRGB(0x01ab58, 1);
-            itemView.titleLabel.textColor = [UIColor whiteColor];
+    if (self.titleBGViewType == TitleViewTypeForBGView) {
+        LBIndexItemView* itemView = self.itemViewList[section];
+        LBIndexItemView* lastItemView = self.itemViewList[self.lastSelectIndex];
+        if (self.lastSelectIndex != section) {
+            self.lastSelectIndex = section;
+            if (section !=0 && section !=1) {
+                itemView.titleLabel.backgroundColor = self.schemeColor?self.schemeColor:LBUIColorWithRGB(0x01ab58, 1);
+                itemView.titleLabel.textColor = [UIColor whiteColor];
+            }
+            lastItemView.titleLabel.backgroundColor = [UIColor clearColor];
+            lastItemView.titleLabel.textColor = [UIColor darkGrayColor];
         }
-        lastItemView.titleLabel.backgroundColor = [UIColor clearColor];
-        lastItemView.titleLabel.textColor = [UIColor darkGrayColor];
     }
 }
 
