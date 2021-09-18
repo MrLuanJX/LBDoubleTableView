@@ -95,13 +95,13 @@
 }
 
 - (void)setData {
-    [self.pyArray enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
+    [self.pyArray enumerateObjectsUsingBlock:^(id object, NSUInteger pyIdx, BOOL *stop) {
         NSMutableDictionary* cityDict =object;
         NSMutableArray* dataArr = @[].mutableCopy;
-        if (idx == 0) {
+        if (pyIdx == 0) {
             dataArr = self.historyArray;
         }
-        if (idx == 1) {
+        if (pyIdx == 1) {
             dataArr =  @[@"北京市",@"上海市",@"广州市",@"深圳市",@"杭州市",@"苏州市",@"昆明市",@"西安市",@"郑州市",@"哈尔滨市",@"沈阳市",@"长春市",@"石家庄市",@"天津市",@"成都市",@"重庆市",@"武汉市",@"合肥市",@"长沙市",@"厦门市",@"南昌市"].mutableCopy;
         }
         [self.dataArray enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
@@ -116,6 +116,17 @@
         cityDict[@"cityName"] = dataArr;
         [self.allArray addObject:cityDict];
     }];
+    
+    // 移除section所在的cell个数为0的元素
+    NSMutableArray* tempArr = [NSMutableArray arrayWithArray:self.allArray];
+    [tempArr enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
+        NSMutableDictionary* dict = object;
+        NSMutableArray* arr = [NSMutableArray arrayWithArray:dict[@"cityName"]];
+        if (arr.count == 0 && idx != 0) {
+            [self.allArray removeObject:dict];
+        }
+    }];
+    
     [self.cityIndexView setValue:self.allArray forKey:@"dataSource"];
     // 缓存cityData
     [LBUserDefaultTool saveCityData:self.allArray];

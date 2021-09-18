@@ -54,6 +54,6 @@ typedef enum {
 @property(nonatomic, strong)UIColor* schemeColor;
 // 刷新
 - (void)reloadIndexView;
-
+- (void)setupTitleBGView:(NSInteger)section;
 @end
 

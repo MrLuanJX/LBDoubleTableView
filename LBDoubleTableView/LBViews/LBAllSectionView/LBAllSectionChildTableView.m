@@ -106,7 +106,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (self.isScroll == YES) {
-        NSInteger sectionNumber = [self.childTableView indexPathForCell:self.childTableView.visibleCells.firstObject].section;
+        NSInteger sectionNumber = self.childTableView.indexPathsForVisibleRows.firstObject.section;
         if (self.lastSection != sectionNumber) {
             self.lastSection = sectionNumber;
             if (self.scrollFinishCallback) {

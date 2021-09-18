@@ -243,7 +243,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        
         [self createUI];
     }
     return self;
@@ -413,18 +412,17 @@
 }
 #pragma mark - LBIndexViewDelegate
 - (void)sectionIndexView:(LBIndexView *)sectionIndexView didSelectSection:(NSInteger)section {
-    NSMutableDictionary* dict = self.dataSource[section];
-    NSMutableDictionary* dictionary = self.dataSource.count<=section?self.dataSource[section+1]:@{}.mutableCopy;
-    NSMutableArray* arr = [NSMutableArray arrayWithArray:dict[@"cityName"]];
-    NSMutableArray* array = [NSMutableArray arrayWithArray:dictionary[@"cityName"]];
-    if (arr.count <= 0) {
-        section = section+1;
-        if (array.count <= 0) {
-            section = section+1;
-        }
-    }
-    // 避免section里面的row为空，滚动到顶部crash
+    // section滚动到顶部
     [self.cityTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.isTracking || scrollView.isDecelerating) {
+        NSInteger firstVisibleSection = self.cityTableView.indexPathsForVisibleRows.firstObject.section;
+        [self.indexView setupTitleBGView:firstVisibleSection];
+    } else {
+        return;  // 不是用手指滚动的，不需要处理
+    }
 }
 
 #pragma mark - lazy load
