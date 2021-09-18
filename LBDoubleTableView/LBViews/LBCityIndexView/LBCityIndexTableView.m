@@ -274,6 +274,7 @@
 
 - (void)setDataSource:(NSMutableArray *)dataSource {
     _dataSource = dataSource;
+    
     [self.activity stopAnimating];
     [self.cityTableView reloadData];
     
@@ -303,21 +304,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    NSMutableDictionary* dict = self.dataSource[section];
-    UIView* sectionView = [UIView new];
-    sectionView.backgroundColor = section==0||section==1?LBUIColorWithRGB(0xFFFFFF, 1):LBUIColorWithRGB(0xF5F5F5, 1);
-    
-    UILabel* cityLabel = [UILabel new];
-    cityLabel.text = dict[@"cityId"];
-    cityLabel.textColor = LBUIColorWithRGB(0x130202, 1);
-    cityLabel.font = section==0||section==1?LBFontNameSize(Font_Bold, 17):LBFontNameSize(Font_Bold, 14);
-    [sectionView addSubview:cityLabel];
-    [cityLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.right.offset(0);
-        make.left.offset(10);
-    }];
-    
-    return sectionView;
+   return [self sectionView:section];
 }
 #pragma mark - tableViewDataSource
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -396,6 +383,7 @@
     cell.selectedImg.alpha = 1;
     cell.cityLabel.textColor = LBUIColorWithRGB(0x228B22, 1);
 }
+
 #pragma mark - LBIndexViewDataSource
 - (NSInteger)numberOfItemViewForSectionIndexView:(LBIndexView *)sectionIndexView {
     return self.cityTableView.numberOfSections;
@@ -423,6 +411,27 @@
     } else {
         return;  // 不是用手指滚动的，不需要处理
     }
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    [self.indexView setupTitleBGView:0];
+}
+
+- (UIView *)sectionView:(NSInteger)section {
+    NSMutableDictionary* dict = self.dataSource[section];
+    UIView* sectionView = [UIView new];
+    sectionView.backgroundColor = section==0||section==1?LBUIColorWithRGB(0xFFFFFF, 1):LBUIColorWithRGB(0xF5F5F5, 1);
+        
+    UILabel* cityLabel = [UILabel new];
+    cityLabel.text = dict[@"cityId"];
+    cityLabel.textColor = LBUIColorWithRGB(0x130202, 1);
+    cityLabel.font = section==0||section==1?LBFontNameSize(Font_Bold, 17):LBFontNameSize(Font_Bold, 14);
+    [sectionView addSubview:cityLabel];
+    [cityLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.right.offset(0);
+        make.left.offset(10);
+    }];
+    return sectionView;
 }
 
 #pragma mark - lazy load
