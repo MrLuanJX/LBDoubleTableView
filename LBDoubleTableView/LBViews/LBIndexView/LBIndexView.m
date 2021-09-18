@@ -272,7 +272,7 @@ static NSInteger calloutW = 70;
             CAShapeLayer *maskLayer = [CAShapeLayer layer];
             maskLayer.path = [UIBezierPath drawIndicatorPath:calloutW].CGPath;
             _calloutView.layer.mask = maskLayer;
-        } else {
+        } else if (self.calloutViewType == CalloutViewTypeForSuspen) {
             _calloutView.backgroundColor = [UIColor clearColor];
             _calloutView.layer.cornerRadius = calloutW/2;
             _calloutView.layer.borderWidth = 3.0f;
@@ -281,6 +281,9 @@ static NSInteger calloutW = 70;
             _calloutView.layer.shadowOpacity = .8;
             _calloutView.layer.shadowRadius = 5.0f;
             _calloutView.layer.shadowOffset = CGSizeMake(2.0, 2.0);
+        } else {
+            _calloutView.layer.backgroundColor = self.schemeColor?color.CGColor:LBUIColorWithRGB(0xDCDCDC, 1).CGColor;
+            _calloutView.layer.cornerRadius = 5;
         }
         _calloutView.textColor = self.schemeColor?self.schemeColor:LBUIColorWithRGB(0xFFFFFF, 1);
         _calloutView.textAlignment = NSTextAlignmentCenter;

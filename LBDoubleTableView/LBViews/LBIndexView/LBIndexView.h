@@ -11,7 +11,8 @@
 // calloutViewType
 typedef enum {
     CalloutViewTypeForDefault,
-    CalloutViewTypeForSuspen
+    CalloutViewTypeForSuspen,
+    CalloutViewTypeForCenterGrid
 }LBCalloutViewType;
 
 // titleViewType
