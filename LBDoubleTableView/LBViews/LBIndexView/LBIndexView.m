@@ -39,7 +39,7 @@ static NSInteger calloutW = 70;
 
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
-    self.titleLabel.layer.cornerRadius = LBScreenH/3*2/28/2;
+    self.titleLabel.layer.cornerRadius = LBScreenH/3*2/28/1.8;
     self.titleLabel.clipsToBounds = YES;
 }
 
@@ -55,13 +55,12 @@ static NSInteger calloutW = 70;
 
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] init];
+        _titleLabel = [UILabel new];
         _titleLabel.font = [UIFont systemFontOfSize:12];
         _titleLabel.textColor = [UIColor darkGrayColor];
         _titleLabel.shadowColor = [UIColor whiteColor];
         _titleLabel.shadowOffset = CGSizeMake(0, 1);
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        
     }
     return _titleLabel;
 }

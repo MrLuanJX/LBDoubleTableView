@@ -19,6 +19,8 @@
 		0D58C81426F1C8BB000F45B2 /* LBIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C81326F1C8BB000F45B2 /* LBIndexView.m */; };
 		0D58C81A26F32CCF000F45B2 /* UIColor+GetRGBA.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C81926F32CCF000F45B2 /* UIColor+GetRGBA.m */; };
 		0D58C81D26F32DBC000F45B2 /* UIBezierPath+DrawIndicatorPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C81C26F32DBC000F45B2 /* UIBezierPath+DrawIndicatorPath.m */; };
+		0D58C82326FDBFDD000F45B2 /* UILabel+X.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C82226FDBFDD000F45B2 /* UILabel+X.m */; };
+		0D58C84C271D0155000F45B2 /* NSArray+LBSafety.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58C84B271D0155000F45B2 /* NSArray+LBSafety.m */; };
 		0DF6A69126E744B9004B56D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A69026E744B9004B56D8 /* AppDelegate.m */; };
 		0DF6A69426E744B9004B56D8 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A69326E744B9004B56D8 /* SceneDelegate.m */; };
 		0DF6A69726E744B9004B56D8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6A69626E744B9004B56D8 /* ViewController.m */; };
@@ -78,6 +80,10 @@
 		0D58C81926F32CCF000F45B2 /* UIColor+GetRGBA.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GetRGBA.m"; sourceTree = "<group>"; };
 		0D58C81B26F32DBC000F45B2 /* UIBezierPath+DrawIndicatorPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+DrawIndicatorPath.h"; sourceTree = "<group>"; };
 		0D58C81C26F32DBC000F45B2 /* UIBezierPath+DrawIndicatorPath.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+DrawIndicatorPath.m"; sourceTree = "<group>"; };
+		0D58C82126FDBFDD000F45B2 /* UILabel+X.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+X.h"; sourceTree = "<group>"; };
+		0D58C82226FDBFDD000F45B2 /* UILabel+X.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+X.m"; sourceTree = "<group>"; };
+		0D58C84A271D0155000F45B2 /* NSArray+LBSafety.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+LBSafety.h"; sourceTree = "<group>"; };
+		0D58C84B271D0155000F45B2 /* NSArray+LBSafety.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+LBSafety.m"; sourceTree = "<group>"; };
 		0DF6A68C26E744B9004B56D8 /* LBDoubleTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LBDoubleTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DF6A68F26E744B9004B56D8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0DF6A69026E744B9004B56D8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -299,6 +305,8 @@
 		0DF6A6B626E74A65004B56D8 /* LBCategory */ = {
 			isa = PBXGroup;
 			children = (
+				0D58C82126FDBFDD000F45B2 /* UILabel+X.h */,
+				0D58C82226FDBFDD000F45B2 /* UILabel+X.m */,
 				0DF6A6FC26E8B34F004B56D8 /* UIView+JFBorders.h */,
 				0DF6A6FD26E8B34F004B56D8 /* UIView+JFBorders.m */,
 				0DF6A6BB26E74A8F004B56D8 /* UIImage+Extension.h */,
@@ -317,6 +325,8 @@
 				0D58C81926F32CCF000F45B2 /* UIColor+GetRGBA.m */,
 				0D58C81B26F32DBC000F45B2 /* UIBezierPath+DrawIndicatorPath.h */,
 				0D58C81C26F32DBC000F45B2 /* UIBezierPath+DrawIndicatorPath.m */,
+				0D58C84A271D0155000F45B2 /* NSArray+LBSafety.h */,
+				0D58C84B271D0155000F45B2 /* NSArray+LBSafety.m */,
 			);
 			path = LBCategory;
 			sourceTree = "<group>";
@@ -506,6 +516,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D58C84C271D0155000F45B2 /* NSArray+LBSafety.m in Sources */,
 				0DF6A6D426E76928004B56D8 /* MJRefresh+learnBorrow.m in Sources */,
 				0DF6A6B126E7481F004B56D8 /* LBBaseView.m in Sources */,
 				0D58C80B26EF5003000F45B2 /* LBTextHUD.m in Sources */,
@@ -513,6 +524,7 @@
 				0D58C80526EF4BA4000F45B2 /* NSDictionary+Log.m in Sources */,
 				0D58C81426F1C8BB000F45B2 /* LBIndexView.m in Sources */,
 				0D58C81A26F32CCF000F45B2 /* UIColor+GetRGBA.m in Sources */,
+				0D58C82326FDBFDD000F45B2 /* UILabel+X.m in Sources */,
 				0DF6A69726E744B9004B56D8 /* ViewController.m in Sources */,
 				0DF6A71126E9E9E3004B56D8 /* LBCityIndexViewController.m in Sources */,
 				0DF6A6E526E8613F004B56D8 /* LBAllSectionView.m in Sources */,

@@ -25,7 +25,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"LBDoubleTableView";
-
+    
     [self loadData];
     [self createUI];
 }
@@ -37,24 +37,13 @@
         make.top.mas_equalTo(0);
     }];
     
+    NSArray* vcArray = @[[LBDoubleTableViewController new],[LBAllSectionViewController new],[LBFoldViewController new],[LBCityIndexViewController new]];
+    
     WeakSelf(weakSelf);
     self.baseView.didSelectCellCallback = ^(NSIndexPath *indexPath,NSString* title) {
         StrongSelf(strongSelf);
-        UIViewController* vc = [UIViewController new];
-        if (indexPath.row == 0) {
-            vc = [LBDoubleTableViewController new];
-        }
-        if (indexPath.row == 1) {
-            vc = [LBAllSectionViewController new];
-        }
-        if (indexPath.row == 2) {
-            vc = [LBFoldViewController new];
-        }
-        if (indexPath.row == 3) {
-            vc = [LBCityIndexViewController new];
-        }
-        [vc setValue:strongSelf.dataArray forKey:@"dataArray"];
-        [strongSelf.navigationController pushViewController:vc animated:YES];
+        [vcArray[indexPath.row] setValue:strongSelf.dataArray forKey:@"dataArray"];
+        [strongSelf.navigationController pushViewController:vcArray[indexPath.row] animated:YES];
     };
 }
 

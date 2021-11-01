@@ -9,7 +9,7 @@
 
 @interface LBRefresh()
 
-@property(nonatomic, strong) UILabel* topLabel;
+@property(nonatomic, strong)UILabel* topLabel;
 
 @end
 

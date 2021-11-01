@@ -12,11 +12,11 @@
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        zx_swizzleSelector([self class], @selector(descriptionWithLocale:indent:), @selector(zx_descriptionWithLocale:indent:));
+        lb_swizzleSelector([self class], @selector(descriptionWithLocale:indent:), @selector(lb_descriptionWithLocale:indent:));
     });
 }
-- (NSString *)zx_descriptionWithLocale:(id)locale indent:(NSUInteger)level {
-    return [self stringByReplaceUnicode:[self zx_descriptionWithLocale:locale indent:level]];
+- (NSString *)lb_descriptionWithLocale:(id)locale indent:(NSUInteger)level {
+    return [self stringByReplaceUnicode:[self lb_descriptionWithLocale:locale indent:level]];
 }
 - (NSString *)stringByReplaceUnicode:(NSString *)unicodeString {
     NSMutableString *convertedString = [unicodeString mutableCopy];
@@ -26,7 +26,7 @@
     
     return convertedString;
 }
-static inline void zx_swizzleSelector(Class theClass, SEL originalSelector, SEL swizzledSelector) {
+static inline void lb_swizzleSelector(Class theClass, SEL originalSelector, SEL swizzledSelector) {
     Method originalMethod = class_getInstanceMethod(theClass, originalSelector);
     Method swizzledMethod = class_getInstanceMethod(theClass, swizzledSelector);
     

@@ -58,6 +58,7 @@
 #import "NSArray+Log.h"
 #import "NSDictionary+Log.h"
 #import "UIColor+GetRGBA.h"
+#import "NSArray+LBSafety.h"
 #import "UIBezierPath+DrawIndicatorPath.h"
 #import "LBTextHUD.h"
 #import "LBUserDefaultTool.h"

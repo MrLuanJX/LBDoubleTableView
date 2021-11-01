@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @class LBIndexView;
 
 // calloutViewType
@@ -56,5 +57,6 @@ typedef enum {
 // 刷新
 - (void)reloadIndexView;
 - (void)setupTitleBGView:(NSInteger)section;
+
 @end
 
