@@ -1,20 +1,33 @@
 PODS:
+  - FLAnimatedImage (1.0.12)
   - Masonry (1.1.0)
   - MJRefresh (3.4.3)
+  - SDWebImage (4.4.8):
+    - SDWebImage/Core (= 4.4.8)
+  - SDWebImage/Core (4.4.8)
+  - SDWebImage/GIF (4.4.8):
+    - FLAnimatedImage (~> 1.0)
+    - SDWebImage/Core
 
 DEPENDENCIES:
   - Masonry
   - MJRefresh
+  - SDWebImage
+  - SDWebImage/GIF
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - FLAnimatedImage
     - Masonry
     - MJRefresh
+    - SDWebImage
 
 SPEC CHECKSUMS:
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: 53e3e3219f204425ee6d3e62e8733d3295944cd6
+  SDWebImage: 783af2c3fa36291a250030c4752ee370a9a51d13
 
-PODFILE CHECKSUM: 0c0a07e3cd17802ee55c258b832058c7c258722f
+PODFILE CHECKSUM: bd8a4de9f0aa428c45929e120db7c97ee9cb53cd
 
 COCOAPODS: 1.10.1

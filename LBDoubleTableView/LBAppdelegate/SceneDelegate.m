@@ -21,8 +21,8 @@
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
     UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:[ViewController new]];
     self.window.rootViewController = nav;
-
 }
+
 
 
 - (void)sceneDidDisconnect:(UIScene *)scene {
